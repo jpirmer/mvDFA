@@ -1,11 +1,19 @@
 Package: mvDFA
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Title: Multivariate Detrended Fluctuation Analysis (DFA)
+Description: Estimation of long memory in multivariate time series.
+Version: 0.0.1
+Date: 2022-08-03
+Authors@R: c(person("Irmer", "Julien Patrick", email = "jirmer@psych.uni-frankfurt.de",
+                    comment = c(ORCID = "0000-0002-7544-6483"),
+                    role = c("aut", "cre")),
+             person("Wallot", "Sebastian",
+                    role = c("aut", "con")))
+Maintainer: Julien Patrick Irmer <jirmer@psych.uni-frankfurt.de>
+License: GPL-3
+Imports: longmemo, stats, HKprocess
+Maintainer: Julien Patrick Irmer <irmer@psych.uni-frankfurt.de>
 Encoding: UTF-8
 LazyData: true
+Author: Julien Patrick Irmer [aut, cre] (<https://orcid.org/0000-0002-7544-6483>)
+RoxygenNote: 7.2.0
