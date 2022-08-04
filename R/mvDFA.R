@@ -13,7 +13,8 @@
 #' @return Returns list of Root Mean Squares per window size for the total `RMS_tot`, the generalized `RMS_gen`, and the covariance approach `Cov_RMS_s`,  the window sizes `S`, the estimated long memory coefficient for the multivariate time series using the total variance approach `Ltot`, and the generalized approach `Lgen`, the average covariance approach `Lfull`. Further a list of covariance matrices per `S` may be returned.
 #' @examples
 #' Sigma <- matrix(.5, 3, 3); diag(Sigma) <- 1
-#' X <- mvtnorm::rmvnorm(n = 10^3, sigma = Sigma) # generate correlated white noise (i.i.d. multivariate normal variables)
+#' # generate correlated white noise (i.i.d. multivariate normal variables)
+#' X <- mvtnorm::rmvnorm(n = 10^3, sigma = Sigma)
 #' mvDFA(X = X)
 #' @export
 
