@@ -4,7 +4,8 @@ This is an `R` package to estimate the univariate and a **m**ulti**v**ariate ada
 ## Install the latest working version from Github
 ```{r}
 install.packages("devtools")
-devtools::install_github("jpirmer/mvDFA")
+devtools::install_github("jpirmer/mvDFA", build_vignettes = T)
 ```
+Use `build_vignettes = T` to be able to see the documentation linked in "Getting Started". 
 
 

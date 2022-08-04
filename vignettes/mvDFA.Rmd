@@ -22,8 +22,10 @@ This requires the package `devtools`.
 
 ```{r, eval=FALSE}
 install.packages("devtools")
-devtools::install_github("jpirmer/mvDFA")
+devtools::install_github("jpirmer/mvDFA", build_vignettes = T)
 ```
+
+Use `build_vignettes = T` to be able to see the documentation linked in "Getting Started". 
 
 Load the package:
 
