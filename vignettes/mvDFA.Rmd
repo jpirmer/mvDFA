@@ -1,6 +1,6 @@
 ---
 title: "multivariate Detrended Fluctuation Analysis using Package mvDFA"
-output: rmarkdown::html_vignette
+output: rmarkdown::pdf_vignette
 vignette: >
   %\VignetteIndexEntry{my-vignette}
   %\VignetteEngine{knitr::rmarkdown}
