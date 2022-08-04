@@ -4,7 +4,7 @@
 \alias{simulate_cMTS}
 \title{Approximate correlated time series with given Hurst Exponent}
 \usage{
-simulate_cMTS(N, H, Sigma)
+simulate_cMTS(N, H, Sigma, simulation_process = "FGN0")
 }
 \arguments{
 \item{N}{Length of Times Series}
@@ -12,6 +12,8 @@ simulate_cMTS(N, H, Sigma)
 \item{H}{Hurst Exponents for `d` time series. These are then mixed using the Cholesky decomposition of the given covariance matrix `Sigma`.}
 
 \item{Sigma}{Positive semi definite covariance matrix of desired multi dimensional time series.}
+
+\item{simulation_process}{The simulation process passed to the `longmemo::sim_` function. Can either be `longmemo::simFGN.fft` (using FFT) or `longmemo::simFGN0` (using fractional gaussian proccesses). FGN0 looks more like `rnorm`, when `H=0.5`. `DEFAULT` to `"FGN0"`. Use `simulation_process="FGN.fft"` to use the FFT based version.}
 }
 \value{
 Returns a multivariate correlated time series with covariance matrix `Sigma`. The Hurst exponents are only approximate univariatly, since they result from mixed time series. Uncorrelated time series keep their univariate Hurst exponent `H`.

@@ -46,8 +46,17 @@ Simulate from the covariance matrix with approximate univariate Hurst-exponents 
 
 ```{r}
 set.seed(2023)
-X <- simulate_cMTS(N = 10^3, H = c(.2, .5, .7, .9), Sigma = Sigma)
+X <- simulate_cMTS(N = 10^3, H = c(.2, .5, .7, .9), Sigma = Sigma, simulation_process = "FGN0")
 head(X)
+```
+
+`simulation_process = "FGN0"` uses `longmemo::simFGN0` to generate independent (Fractional) Gaussian Processes, which are then mixed using the Cholesky decomposition $D$ of $\Sigma := DD'$. Changing this argument to `simulation_process = "FGN.fft"` uses `longmemo::simFGN.fft` (using FFT) to generate independent (Fractional) Gaussian Processes, which are then mixed using the Cholesky decomposition $D$ of $\Sigma := DD'$. The differences may be inspected here:
+
+```{r, fig.align='center', fig.height=3, fig.width=4}
+x1 <- simulate_cMTS(N = 3*10^2, H = c(.5), Sigma = as.matrix(1), simulation_process = "FGN0")
+plot(x1$X1, main = "H = 0.5 and FGN0", type = "l")
+x2 <- simulate_cMTS(N = 3*10^2, H = c(.5), Sigma = as.matrix(1), simulation_process = "FGN.fft")
+plot(x2$X1, main = "H = 0.5 and FGN.fft", type = "l")
 ```
 
 Note: the true Hurst Exponents might be slightly off, since the mixing (weighted sums) of the time series makes them slightly more normal. Hence, small Hurst-exponents ($H<0.5$) tend to be upwards biased, while larger Hurst-exponents tend to be downward biased ($H>0.5$). 
