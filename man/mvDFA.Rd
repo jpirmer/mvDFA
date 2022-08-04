@@ -17,7 +17,7 @@ mvDFA(
 \arguments{
 \item{X}{Matrix or data.frame containing the time series in long format.}
 
-\item{steps}{Maximum number of window sizes. These are spread logarithmically. If time series is short and steps is large, fewer window sizes are drawn. Default to `50`.}
+\item{steps}{Maximum number of window sizes. These are spread logarithmically. If time series is short and steps is large, fewer window sizes are drawn. Default to `50`. The dimensions (`ncol(X)`) and the `degree` influence the smallest possible window size.}
 
 \item{degree}{The maximum order of the detrending polynomial in the segments. This influences the smallest window size "minS" such that minS = degree + 2.}
 
@@ -30,7 +30,7 @@ mvDFA(
 \item{brownian}{Indicator whether time series are assumed to be brownian (i.e. variance increases proportional to time)}
 }
 \value{
-Returns list of Root Mean Squares per window size for the total `RMS_tot`, the generalized `RMS_gen`, the covariance approach `Cov_RMS_s` and the eigen values `RMS_eigen`,  the window sizes `S`, the estimated long memory coefficient for the multivariate time series using the total variance approach `Ltot`, the generalied approach `Lgen`, the average covariance approach `Lfull` and the eigen values approach `Leigen`. Further a list of covariance matrices per `S` may be returned. `MLE_H_element_wise` is the elementwise Hurst exponent estimated via `mleHK` of the `HKprocess` package for comparison.
+Returns list of Root Mean Squares per window size for the total `RMS_tot`, the generalized `RMS_gen`, and the covariance approach `Cov_RMS_s`,  the window sizes `S`, the estimated long memory coefficient for the multivariate time series using the total variance approach `Ltot`, and the generalized approach `Lgen`, the average covariance approach `Lfull`. Further a list of covariance matrices per `S` may be returned.
 }
 \description{
 Analyse multivariate correlated time series and estimate long memory

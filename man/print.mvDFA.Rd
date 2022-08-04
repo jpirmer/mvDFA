@@ -2,7 +2,7 @@
 % Please edit documentation in R/print.mvDFA.R
 \name{print.mvDFA}
 \alias{print.mvDFA}
-\title{print object of class DFA}
+\title{print object of class mvDFA}
 \usage{
 \method{print}{mvDFA}(x, ...)
 }
@@ -12,5 +12,5 @@
 \item{...}{further parameters.}
 }
 \description{
-print object of class DFA
+print object of class mvDFA
 }
