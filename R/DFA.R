@@ -2,6 +2,7 @@
 #' @import stats
 #' @import pracma
 #' @import parallel
+#' @import pbapply
 #' @param X Univariate time series.
 #' @param brownian Indicator whether time series is assumed to be brownian (i.e. variance increases proportional to time)
 #' @param steps Maximum number of window sizes. These are spread logarithmically. If time series is short and steps is large, fewer window sizes are drawn. Default to `50`.
