@@ -1,0 +1,60 @@
+---
+title: "multivariate Detrended Fluctuation Analysis using Package mvDFA"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{my-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This is an `R` package to estimate the univariate and a **m**ulti**v**ariate adaption of the Hurst exponent using **D**etrended **F**luctuation **A**nalysis. The package was created as a supplement to the publication **INSERT PUBLICATION HERE: Wallot et al. (2023)**.
+
+## Install the latest working version from Github
+This requires the package `devtools`.
+
+```{r, eval=FALSE}
+install.packages("devtools")
+devtools::install_github("jpirmer/mvDFA")
+```
+
+Load the package:
+
+```{r setup}
+library(mvDFA)
+```
+
+
+## Test functions for approximated correlated Time Series with different Hurst Exponent
+
+### Simulate correlated time series
+Choose a covariance matrix $\Sigma$
+```{r}
+Sigma <- Sigma <- matrix(.5, 4, 4); diag(Sigma) <- 1
+Sigma
+```
+Simulate from the covariance matrix with approximate univariate Hurst-exponents $H:=(.2, .5, .7, .9)'$. 
+
+```{r}
+set.seed(2023)
+X <- simulate_cMTS(N = 10^3, H = c(.2, .5, .7, .9), Sigma = Sigma)
+head(X)
+```
+
+Note: the true Hurst Exponents might be slightly off, since the mixing (weighted sums) of the time series makes them slightly more normal. Hence, small Hurst-exponents ($H<0.5$) tend to be upwards biased, while larger Hurst-exponents tend to be downward biased ($H>0.5$). 
+
+
+### Estimate multivariate extensions of Hurst exponent for correlated time series
+
+The `mvDFA` function needs only the time series in long format as a `matrix` or `data.frame` object. Multiple `cores` can be used (maximum is `parallel::detectCores()`), which reduces computation time drastically for longer timer series. The `steps` argument manipulates the number of window sizes, which are seperated logarithmically. Larger numbers of steps result in more precise estimates of the extended Hurst exponents.
+
+```{r, message=FALSE, warning=FALSE}
+mvDFA_result <- mvDFA(X = X, steps = 50, cores = 1)
+mvDFA_result
+```
