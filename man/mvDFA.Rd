@@ -19,7 +19,7 @@ mvDFA(
 
 \item{steps}{Maximum number of window sizes. These are spread logarithmically. If time series is short and steps is large, fewer window sizes are drawn. Default to `50`. The dimensions (`ncol(X)`) and the `degree` influence the smallest possible window size.}
 
-\item{degree}{The maximum order of the detrending polynomial in the segments. This influences the smallest window size "minS" such that minS = degree + 2.}
+\item{degree}{The maximum order of the detrending polynomial in the segments. This influences the smallest window size "minS" such that minS = `d` + `degree` + 2, where `d` is the dimension of the time series.}
 
 \item{verbose}{Indicator whether additional infos should be printed. Default to `TRUE`.}
 

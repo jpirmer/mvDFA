@@ -6,7 +6,7 @@
 #' @param X Matrix or data.frame containing the time series in long format.
 #' @param brownian Indicator whether time series are assumed to be brownian (i.e. variance increases proportional to time)
 #' @param steps Maximum number of window sizes. These are spread logarithmically. If time series is short and steps is large, fewer window sizes are drawn. Default to `50`. The dimensions (`ncol(X)`) and the `degree` influence the smallest possible window size.
-#' @param degree The maximum order of the detrending polynomial in the segments. This influences the smallest window size "minS" such that minS = degree + 2.
+#' @param degree The maximum order of the detrending polynomial in the segments. This influences the smallest window size "minS" such that minS = `d` + `degree` + 2, where `d` is the dimension of the time series.
 #' @param verbose Indicator whether additional infos should be printed. Default to `TRUE`.
 #' @param cores Number of cores used in computation. Default to `1`.
 #' @param covlist Indicator whether covariance of the time series per window size should be saved in a list.
