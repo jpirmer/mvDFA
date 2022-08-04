@@ -48,7 +48,7 @@ DFA <- function(X, steps = 50, brownian = F, degree = 1, verbose = T, cores = 1)
 
      if(cores > 1){
           cl <- parallel::makeCluster(cores)
-          parallel::clusterExport(cl = cl,
+          parallel::clusterExport(cl = cl,  envir = environment(),
                                   varlist = c("S", "n", "degree", "Y"))
      }else{cl <- NULL}
 

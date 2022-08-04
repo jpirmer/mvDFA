@@ -40,7 +40,7 @@ mvDFA <- function(X, steps = 50, degree = 1, verbose = F, cores = 1,
      }else{
           S <- pracma::logseq(x1 = (d + degree + 2), x2 = floor(n/4), n =  steps) |> floor() |> unique()
      }
-     if(length(S) != steps) cat(paste0("Effective number of window sizes = ", length(S) ,
+     if(length(S) != steps & verbose) cat(paste0("Effective number of window sizes = ", length(S) ,
                                        ",\n which is smaller than number of steps = ", steps, "!"))
 
 
@@ -53,7 +53,7 @@ mvDFA <- function(X, steps = 50, degree = 1, verbose = F, cores = 1,
 
      if(cores > 1){
           cl <- parallel::makeCluster(cores)
-          parallel::clusterExport(cl = cl,
+          parallel::clusterExport(cl = cl,  envir = environment(),
                                   varlist = c("S", "n", "degree", "Y"))
      }else{cl <- NULL}
 
