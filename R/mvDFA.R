@@ -11,7 +11,10 @@
 #' @param cores Number of cores used in computation. Default to `1`.
 #' @param covlist Indicator whether covariance of the time series per window size should be saved in a list.
 #' @return Returns list of Root Mean Squares per window size for the total `RMS_tot`, the generalized `RMS_gen`, and the covariance approach `Cov_RMS_s`,  the window sizes `S`, the estimated long memory coefficient for the multivariate time series using the total variance approach `Ltot`, and the generalized approach `Lgen`, the average covariance approach `Lfull`. Further a list of covariance matrices per `S` may be returned.
-#'
+#' @examples
+#' Sigma <- matrix(.5, 3, 3); diag(Sigma) <- 1
+#' X <- mvtnorm::rmvnorm(n = 10^3, sigma = Sigma) # generate correlated white noise (i.i.d. multivariate normal variables)
+#' mvDFA(X = X)
 #' @export
 
 mvDFA <- function(X, steps = 50, degree = 1, verbose = F, cores = 1,

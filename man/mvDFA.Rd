@@ -35,3 +35,8 @@ Returns list of Root Mean Squares per window size for the total `RMS_tot`, the g
 \description{
 Analyse multivariate correlated time series and estimate long memory
 }
+\examples{
+Sigma <- matrix(.5, 3, 3); diag(Sigma) <- 1
+X <- mvtnorm::rmvnorm(n = 10^3, sigma = Sigma) # generate correlated white noise (i.i.d. multivariate normal variables)
+mvDFA(X = X)
+}

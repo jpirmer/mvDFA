@@ -10,7 +10,9 @@
 #' @param verbose Indicator whether additional infos should be printed. Default to `TRUE`.
 #' @param cores Number of cores used in computation. Default to `1`.
 #' @return Returns list of Root Mean Squares per window size `RMS_s`, the window sizes `S` and the estimated long memory coefficient `L` - the Hurst Exponent.
-#'
+#' @examples
+#' X <- rnorm(10^3) # generate white noise (i.i.d. standard normal variables)
+#' DFA(X = X)
 #' @export
 
 DFA <- function(X, steps = 50, brownian = F, degree = 1, verbose = T, cores = 1)
