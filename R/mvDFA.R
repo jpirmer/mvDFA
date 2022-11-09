@@ -10,7 +10,25 @@
 #' @param verbose Indicator whether additional infos should be printed. Default to `TRUE`.
 #' @param cores Number of cores used in computation. Default to `1`.
 #' @param covlist Indicator whether covariance of the time series per window size should be saved in a list.
-#' @return Returns list of Root Mean Squares per window size for the total `RMS_tot`, the generalized `RMS_gen`, and the covariance approach `Cov_RMS_s`,  the window sizes `S`, the estimated long memory coefficient for the multivariate time series using the total variance approach `Ltot`, and the generalized approach `Lgen`, the average covariance approach `Lfull`. Further a list of covariance matrices per `S` may be returned.
+#' @returns
+#' An object of class `mvDFA` containing long memory coefficients (Hurst exponents) and corresponding further informations:
+#'
+#' \item{Ltot}{ the estimated long memory coefficient for the multivariate time series using the total variance approach}
+#' \item{Lgen}{the generalized approach}
+#' \item{Lfull}{the average covariance approach}
+#' \item{LmeanUni}{average Hurst exponent across all time series}
+#' \item{univariate_DFA}{univaraite Hurst exponents}
+#' \item{R2tot}{R-squared of total variance approach in regression of log10(RMS) vs log10(S)}
+#' \item{R2gen}{R-squared of generalized variance approach in regression of log10(RMS) vs log10(S)}
+#' \item{R2full}{R-squared of  covariance approach in regression of log10(RMS) vs log10(S)}
+#' \item{R2meanUni}{average R-squared across all time series in regression of log10(RMS) vs log10(S)}
+#' \item{R2univariate_DFA}{R-squares of single time series approach in regression of log10(RMS) vs log10(S)}
+#' \item{RMS_tot}{a list of Root Mean Squares per window size corresponding to the total variance approach}
+#' \item{RMS_gen}{a list of Root Mean Squares per window size corresponding to the total generalized approach}
+#' \item{Cov_RMS_s}{a list of Root Mean Squares per window size corresponding to the covariance approach}
+#' \item{S}{window sizes used}
+#' \item{CovRMS_list}{a list of covariance matrices per `S` may be returned}
+#'
 #' @examples
 #' Sigma <- matrix(.5, 3, 3); diag(Sigma) <- 1
 #' # generate correlated white noise (i.i.d. multivariate normal variables)
@@ -33,7 +51,6 @@ mvDFA <- function(X, steps = 50, degree = 1, verbose = F, cores = 1,
 
      n <- nrow(X); d <- ncol(X)
      if(d == 1) stop("Univariate time series used. Please use DFA() instead!")
-     if(!brownian){Y <- cumsum(X-mean(X))}else{Y <- X}
      if(n/4 > 21 & steps > 20)
      {
           S <- c((d + degree + 2):(20+ (d + degree + 1)), pracma::logseq(x1 = 20 + (d + degree + 2), x2 = floor(n/4), n =  steps-20)) |> floor() |> unique()  # log spread window sizes

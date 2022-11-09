@@ -30,7 +30,23 @@ mvDFA(
 \item{brownian}{Indicator whether time series are assumed to be brownian (i.e. variance increases proportional to time)}
 }
 \value{
-Returns list of Root Mean Squares per window size for the total `RMS_tot`, the generalized `RMS_gen`, and the covariance approach `Cov_RMS_s`,  the window sizes `S`, the estimated long memory coefficient for the multivariate time series using the total variance approach `Ltot`, and the generalized approach `Lgen`, the average covariance approach `Lfull`. Further a list of covariance matrices per `S` may be returned.
+An object of class `mvDFA` containing long memory coefficients (Hurst exponents) and corresponding further informations:
+
+\item{Ltot}{ the estimated long memory coefficient for the multivariate time series using the total variance approach}
+\item{Lgen}{the generalized approach}
+\item{Lfull}{the average covariance approach}
+\item{LmeanUni}{average Hurst exponent across all time series}
+\item{univariate_DFA}{univaraite Hurst exponents}
+\item{R2tot}{R-squared of total variance approach in regression of log10(RMS) vs log10(S)}
+\item{R2gen}{R-squared of generalized variance approach in regression of log10(RMS) vs log10(S)}
+\item{R2full}{R-squared of  covariance approach in regression of log10(RMS) vs log10(S)}
+\item{R2meanUni}{average R-squared across all time series in regression of log10(RMS) vs log10(S)}
+\item{R2univariate_DFA}{R-squares of single time series approach in regression of log10(RMS) vs log10(S)}
+\item{RMS_tot}{a list of Root Mean Squares per window size corresponding to the total variance approach}
+\item{RMS_gen}{a list of Root Mean Squares per window size corresponding to the total generalized approach}
+\item{Cov_RMS_s}{a list of Root Mean Squares per window size corresponding to the covariance approach}
+\item{S}{window sizes used}
+\item{CovRMS_list}{a list of covariance matrices per `S` may be returned}
 }
 \description{
 Analyse multivariate correlated time series and estimate long memory
