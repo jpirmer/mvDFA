@@ -11,7 +11,7 @@
 #' @param cores Number of cores used in computation. Default to `1`.
 #' @param covlist Indicator whether covariance of the time series per window size should be saved in a list.
 #' @returns
-#' An object of class `mvDFA` containing long memory coefficients (Hurst exponents) and corresponding further informations:
+#' An object of class \code{mvDFA} containing long memory coefficients (Hurst exponents) and corresponding further informations:
 #'
 #' \item{Ltot}{ the estimated long memory coefficient for the multivariate time series using the total variance approach}
 #' \item{Lgen}{the generalized approach}

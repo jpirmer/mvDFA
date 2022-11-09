@@ -30,7 +30,7 @@ mvDFA(
 \item{brownian}{Indicator whether time series are assumed to be brownian (i.e. variance increases proportional to time)}
 }
 \value{
-An object of class `mvDFA` containing long memory coefficients (Hurst exponents) and corresponding further informations:
+An object of class \code{mvDFA} containing long memory coefficients (Hurst exponents) and corresponding further informations:
 
 \item{Ltot}{ the estimated long memory coefficient for the multivariate time series using the total variance approach}
 \item{Lgen}{the generalized approach}
