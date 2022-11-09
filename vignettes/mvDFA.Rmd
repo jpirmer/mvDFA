@@ -61,6 +61,8 @@ plot(x2$X1, main = "H = 0.5 and FGN.fft", type = "l")
 
 Note: the true Hurst Exponents might be slightly off, since the mixing (weighted sums) of the time series makes them slightly more normal. Hence, small Hurst-exponents ($H<0.5$) tend to be upwards biased, while larger Hurst-exponents tend to be downward biased ($H>0.5$). 
 
+Further, the use of Cholesky might influence the generation of data in a different way than another decomposition of $\Sigma$ would. 
+
 
 ### Estimate multivariate extensions of Hurst exponent for correlated time series
 
