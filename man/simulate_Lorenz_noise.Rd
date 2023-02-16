@@ -42,11 +42,11 @@ simulate_Lorenz_noise(
 
 \item{sdZ}{Use this argument to rescale the Z-coordinate to have the desired standard deviation (exactly). This is ignored if set to \code{NULL}. \code{DEFAULT} to \code{NULL}.}
 
-\item{sdnoiseX}{Standard deviation of Gaussian noise of X-coordinate.}
+\item{sdnoiseX}{Standard deviation of Gaussian noise of X-coordinate. If set to \code{0}, no noise is created.}
 
-\item{sdnoiseY}{Standard deviation of Gaussian noise of Y-coordinate.}
+\item{sdnoiseY}{Standard deviation of Gaussian noise of Y-coordinate. If set to \code{0}, no noise is created.}
 
-\item{sdnoiseZ}{Standard deviation of Gaussian noise of Z-coordinate.}
+\item{sdnoiseZ}{Standard deviation of Gaussian noise of Z-coordinate. If set to \code{0}, no noise is created.}
 
 \item{s}{s-parameter of the Lorenz ODE. See Vigniette for further details. \code{DEFAULT} to \code{10}, which is the original value chosen by Lorenz.}
 

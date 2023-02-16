@@ -10,9 +10,9 @@
 #' @param sdX Use this argument to rescale the X-coordinate to have the desired standard deviation (exactly). This is ignored if set to \code{NULL}. \code{DEFAULT} to \code{NULL}.
 #' @param sdY Use this argument to rescale the Y-coordinate to have the desired standard deviation (exactly). This is ignored if set to \code{NULL}. \code{DEFAULT} to \code{NULL}.
 #' @param sdZ Use this argument to rescale the Z-coordinate to have the desired standard deviation (exactly). This is ignored if set to \code{NULL}. \code{DEFAULT} to \code{NULL}.
-#' @param sdnoiseX Standard deviation of Gaussian noise of X-coordinate.
-#' @param sdnoiseY Standard deviation of Gaussian noise of Y-coordinate.
-#' @param sdnoiseZ Standard deviation of Gaussian noise of Z-coordinate.
+#' @param sdnoiseX Standard deviation of Gaussian noise of X-coordinate. If set to \code{0}, no noise is created.
+#' @param sdnoiseY Standard deviation of Gaussian noise of Y-coordinate. If set to \code{0}, no noise is created.
+#' @param sdnoiseZ Standard deviation of Gaussian noise of Z-coordinate. If set to \code{0}, no noise is created.
 #' @param s s-parameter of the Lorenz ODE. See Vigniette for further details. \code{DEFAULT} to \code{10}, which is the original value chosen by Lorenz.
 #' @param r r-parameter of the Lorenz ODE. See Vigniette for further details. \code{DEFAULT} to \code{28}, which is the original value chosen by Lorenz.
 #' @param b b-parameter of the Lorenz ODE. See Vigniette for further details. \code{DEFAULT} to \code{8/3}, which is the original value chosen by Lorenz.
