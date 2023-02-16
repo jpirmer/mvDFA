@@ -2,8 +2,8 @@ Package: mvDFA
 Type: Package
 Title: Multivariate Detrended Fluctuation Analysis (DFA)
 Description: Estimation of long memory in multivariate time series.
-Version: 0.0.1
-Date: 2022-08-03
+Version: 0.0.2
+Date: 2023-02-16
 Authors@R: c(person("Julien Patrick", "Irmer", email = "jirmer@psych.uni-frankfurt.de",
                     comment = c(ORCID = "0000-0002-7544-6483"),
                     role = c("aut", "cre")),
@@ -14,7 +14,7 @@ Maintainer: Julien Patrick Irmer <jirmer@psych.uni-frankfurt.de>
 License: GPL-3 + file LICENSE
 Imports: longmemo, stats, pbapply, pracma, RobPer, mvtnorm
 Encoding: UTF-8
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.3
 Suggests: 
     knitr,
     rmarkdown

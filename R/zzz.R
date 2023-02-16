@@ -1,3 +1,5 @@
+#' @importFrom utils packageVersion
+
 mvDFAStartupMessage <- function()
 {
      msg <- c(paste0("This is a beta version. Please report any bugs! mvDFA version ",
