@@ -1,6 +1,6 @@
 #' Analyse multivariate correlated time series and estimate long memory
 #' @import stats
-#' @import pracma
+#' @importFrom pracma logseq
 #' @import parallel
 #' @import pbapply
 #' @param X Matrix or data.frame containing the time series in long format.
@@ -53,9 +53,9 @@ mvDFA <- function(X, steps = 50, degree = 1, verbose = F, cores = 1,
      if(d == 1) stop("Univariate time series used. Please use DFA() instead!")
      if(n/4 > 21 & steps > 20)
      {
-          S <- c((d + degree + 2):(20+ (d + degree + 1)), pracma::logseq(x1 = 20 + (d + degree + 2), x2 = floor(n/4), n =  steps-20)) |> floor() |> unique()  # log spread window sizes
+          S <- c((d + degree + 2):(20+ (d + degree + 1)), logseq(x1 = 20 + (d + degree + 2), x2 = floor(n/4), n =  steps-20)) |> floor() |> unique()  # log spread window sizes
      }else{
-          S <- pracma::logseq(x1 = (d + degree + 2), x2 = floor(n/4), n =  steps) |> floor() |> unique()
+          S <- logseq(x1 = (d + degree + 2), x2 = floor(n/4), n =  steps) |> floor() |> unique()
      }
      if(length(S) != steps & verbose) cat(paste0("Effective number of window sizes = ", length(S) ,
                                        ",\n which is smaller than number of steps = ", steps, "!"))

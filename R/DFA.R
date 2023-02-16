@@ -1,6 +1,6 @@
 #' Analyse univariate time series and estimate long memory
 #' @import stats
-#' @import pracma
+#' @importFrom pracma logseq
 #' @import parallel
 #' @import pbapply
 #' @param X Univariate time series.

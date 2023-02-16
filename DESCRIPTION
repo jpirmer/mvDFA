@@ -12,7 +12,7 @@ Authors@R: c(person("Julien Patrick", "Irmer", email = "jirmer@psych.uni-frankfu
 Author: Julien Patrick Irmer [aut, cre] (<https://orcid.org/0000-0002-7544-6483>)
 Maintainer: Julien Patrick Irmer <jirmer@psych.uni-frankfurt.de>
 License: GPL-3 + file LICENSE
-Imports: longmemo, stats, pbapply, pracma, RobPer, mvtnorm
+Imports: longmemo, stats, pbapply, deSolve, RobPer, mvtnorm, pracma
 Encoding: UTF-8
 RoxygenNote: 7.2.3
 Suggests: 

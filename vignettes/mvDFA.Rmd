@@ -18,10 +18,10 @@ knitr::opts_chunk$set(
 This is an `R` package to estimate the univariate and a **m**ulti**v**ariate adaption of the Hurst exponent using **D**etrended **F**luctuation **A**nalysis. The package was created as a supplement to the publication **INSERT PUBLICATION HERE: Wallot et al. (2023)**.
 
 ## Install the latest working version from Github
-This requires the package `devtools`.
+This requires the package `devtools`. The following code installs `devtools`, if it is not installed.
 
 ```{r, eval=FALSE}
-install.packages("devtools")
+if(!"devtools" %in% installed.packages()) install.packages("devtools")
 devtools::install_github("jpirmer/mvDFA", build_vignettes = T)
 ```
 
@@ -37,16 +37,18 @@ library(mvDFA)
 ## Test functions for approximated correlated Time Series with different Hurst Exponent
 
 ### Simulate correlated time series
+
 Choose a covariance matrix $\Sigma$
 ```{r}
 Sigma <- Sigma <- matrix(.5, 4, 4); diag(Sigma) <- 1
+Sigma[3,4] <- Sigma[4,3] <- -.3
 Sigma
 ```
 Simulate from the covariance matrix with approximate univariate Hurst-exponents $H:=(.2, .5, .7, .9)'$. 
 
 ```{r}
 set.seed(2023)
-X <- simulate_cMTS(N = 10^3, H = c(.2, .5, .7, .9), Sigma = Sigma, simulation_process = "FGN0")
+X <- simulate_cMTS(N = 10^3, H = c(.2, .5, .7, .9), Sigma = Sigma, simulation_process = "FGN0", decomposition = "chol")
 head(X)
 ```
 
@@ -59,7 +61,7 @@ x2 <- simulate_cMTS(N = 3*10^2, H = c(.5), Sigma = as.matrix(1), simulation_proc
 plot(x2$X1, main = "H = 0.5 and FGN.fft", type = "l")
 ```
 
-Note: the true Hurst Exponents might be slightly off, since the mixing (weighted sums) of the time series makes them slightly more normal. Hence, small Hurst-exponents ($H<0.5$) tend to be upwards biased, while larger Hurst-exponents tend to be downward biased ($H>0.5$). 
+Note: the true Hurst Exponents might be slightly off, since the mixing (weighted sums) of the time series makes them slightly more normal (due to the central limits theorem). Hence, small Hurst-exponents ($H<0.5$) tend to be upwards biased, while larger Hurst-exponents tend to be downward biased ($H>0.5$). 
 
 Further, the use of Cholesky might influence the generation of data in a different way than another decomposition of $\Sigma$ would. 
 
@@ -71,4 +73,20 @@ The `mvDFA` function needs only the time series in long format as a `matrix` or 
 ```{r, message=FALSE, warning=FALSE}
 mvDFA_result <- mvDFA(X = X, steps = 50, cores = 1)
 mvDFA_result
+```
+
+
+
+
+
+
+```{r,eval=FALSE}
+
+par(mfrow=c(2,3))
+plot(out$time, out$X, type = "l", main = "X vs. time")
+plot(out$time, out$Y, type = "l", main = "Y vs. time")
+plot(out$time, out$Z, type = "l", main = "Y vs. time")
+plot(out$X, out$Y, type = "l", main = "Y vs. X")
+plot(out$X, out$Z, type = "l", main = "Z vs. X")
+plot(out$Y, out$Z, type = "l", main = "Z vs. Y")
 ```
