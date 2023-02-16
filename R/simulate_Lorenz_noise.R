@@ -16,6 +16,7 @@
 #' @param s s-parameter of the Lorenz ODE. See Vigniette for further details. \code{DEFAULT} to \code{10}, which is the original value chosen by Lorenz.
 #' @param r r-parameter of the Lorenz ODE. See Vigniette for further details. \code{DEFAULT} to \code{28}, which is the original value chosen by Lorenz.
 #' @param b b-parameter of the Lorenz ODE. See Vigniette for further details. \code{DEFAULT} to \code{8/3}, which is the original value chosen by Lorenz.
+#' @param naive Logical whether naive calculation should be used. \code{DEFAULT} to \code{FALSE}.
 #' @param return_time Logical whether the time-coordinate should be included in the returned \code{data.frame}. \code{DEFAULT} to \code{TRUE}.
 #' @export
 
@@ -24,6 +25,7 @@ simulate_Lorenz_noise <- function(N = 1000, delta_t = NULL, tmax = 50,
                          sdX = NULL, sdY = NULL, sdZ = NULL,
                          sdnoiseX, sdnoiseY, sdnoiseZ,
                          s = 10, r = 28, b = 8/3,
+                         naive = F,
                          return_time = T)
 {
 
@@ -47,7 +49,33 @@ simulate_Lorenz_noise <- function(N = 1000, delta_t = NULL, tmax = 50,
      }
 
      ### solve ODE ----------------------------------------------------------------
-     out <- deSolve::ode(y = state, times = times, func = Lorenz, parms = parameters)  |> data.frame()
+     if(naive)
+     {
+
+          NaiveLorenz <- function(times, state, parameters)
+          {
+               LorenzODE <- function(dt, X, Y, Z, s, r, b){
+                    dX <- s * (Y - X)
+                    dY <- X * (r - Z) - Y
+                    dZ <- X * Y - b * Z
+                    return(c(dX*dt + X, dY*dt + Y, dZ*dt + Z))
+               }
+
+               XYZ <- rbind(c(X0, Y0, Z0), matrix(NA, nrow = length(times)-1, ncol = 3))
+               for(i in 2:length(times))
+               {
+                    dt <- times[i]-times[i-1]
+                    XYZ[i,] <- LorenzODE(dt = dt, X = XYZ[i-1,1], Y = XYZ[i-1,2], Z = XYZ[i-1,3],
+                                      s = s, r = r, b = b)
+               }
+               XYZ <- data.frame(times, XYZ)
+               names(XYZ) <- c("time", "X", "Y", "Z")
+               return(XYZ)
+          }
+          out <- NaiveLorenz(times = times, state = state, parameters = parameters)
+     }else{
+          out <- deSolve::ode(y = state, times = times, func = Lorenz, parms = parameters)  |> data.frame()
+     }
 
      if(all(out[,-1] == 0)) stop("The point (0,0,0) as a starting point results in a constant (=0) time series with noise.")
 

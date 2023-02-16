@@ -20,6 +20,7 @@ simulate_Lorenz_noise(
   s = 10,
   r = 28,
   b = 8/3,
+  naive = F,
   return_time = T
 )
 }
@@ -53,6 +54,8 @@ simulate_Lorenz_noise(
 \item{r}{r-parameter of the Lorenz ODE. See Vigniette for further details. \code{DEFAULT} to \code{28}, which is the original value chosen by Lorenz.}
 
 \item{b}{b-parameter of the Lorenz ODE. See Vigniette for further details. \code{DEFAULT} to \code{8/3}, which is the original value chosen by Lorenz.}
+
+\item{naive}{Logical whether naive calculation should be used. \code{DEFAULT} to \code{FALSE}.}
 
 \item{return_time}{Logical whether the time-coordinate should be included in the returned \code{data.frame}. \code{DEFAULT} to \code{TRUE}.}
 }
