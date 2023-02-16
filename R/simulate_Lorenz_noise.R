@@ -4,9 +4,9 @@
 #' @param N Length of Times Series
 #' @param delta_t Step size for time scale. If \code{NULL} this is derived using \code{N} and \code{tmax}. \code{DEFAULT} to \code{NULL}.
 #' @param tmax Upper bound of the time scale. This argument is ignored if \code{delta_t} is provided. \code{DEFAULT} to \code{50}.
-#' @param startX Initial value for X at t=0. \code{DEFAULT} to 0.
-#' @param startY Initial value for Y at t=0. \code{DEFAULT} to 1.
-#' @param startZ Initial value for Z at t=0. \code{DEFAULT} to 1.
+#' @param X0 Initial value for X at t=0. \code{DEFAULT} to 0.
+#' @param Y0 Initial value for Y at t=0. \code{DEFAULT} to 1.
+#' @param Z0 Initial value for Z at t=0. \code{DEFAULT} to 1.
 #' @param sdX Use this argument to rescale the X-coordinate to have the desired standard deviation (exactly). This is ignored if set to \code{NULL}. \code{DEFAULT} to \code{NULL}.
 #' @param sdY Use this argument to rescale the Y-coordinate to have the desired standard deviation (exactly). This is ignored if set to \code{NULL}. \code{DEFAULT} to \code{NULL}.
 #' @param sdZ Use this argument to rescale the Z-coordinate to have the desired standard deviation (exactly). This is ignored if set to \code{NULL}. \code{DEFAULT} to \code{NULL}.
@@ -20,7 +20,7 @@
 #' @export
 
 simulate_Lorenz_noise <- function(N = 1000, delta_t = NULL, tmax = 50,
-                         startX = 0, startY = 1, startZ = 1,
+                         X0 = 0, Y0 = 1, Z0 = 1,
                          sdX = NULL, sdY = NULL, sdZ = NULL,
                          sdnoiseX, sdnoiseY, sdnoiseZ,
                          s = 10, r = 28, b = 8/3,
@@ -34,7 +34,7 @@ simulate_Lorenz_noise <- function(N = 1000, delta_t = NULL, tmax = 50,
      }
      times <- seq(0, tmax, length.out = N)
 
-     state <- c("X" = startX, "Y" = startY, "Z" = startZ)
+     state <- c("X" = X0, "Y" = Y0, "Z" = Z0)
      parameters <- c("s" = s, "r" = r, "b" = b)
 
      Lorenz <- function(t, state, parameters) {

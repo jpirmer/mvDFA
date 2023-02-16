@@ -8,9 +8,9 @@ simulate_Lorenz_noise(
   N = 1000,
   delta_t = NULL,
   tmax = 50,
-  startX = 0,
-  startY = 1,
-  startZ = 1,
+  X0 = 0,
+  Y0 = 1,
+  Z0 = 1,
   sdX = NULL,
   sdY = NULL,
   sdZ = NULL,
@@ -30,11 +30,11 @@ simulate_Lorenz_noise(
 
 \item{tmax}{Upper bound of the time scale. This argument is ignored if \code{delta_t} is provided. \code{DEFAULT} to \code{50}.}
 
-\item{startX}{Initial value for X at t=0. \code{DEFAULT} to 0.}
+\item{X0}{Initial value for X at t=0. \code{DEFAULT} to 0.}
 
-\item{startY}{Initial value for Y at t=0. \code{DEFAULT} to 1.}
+\item{Y0}{Initial value for Y at t=0. \code{DEFAULT} to 1.}
 
-\item{startZ}{Initial value for Z at t=0. \code{DEFAULT} to 1.}
+\item{Z0}{Initial value for Z at t=0. \code{DEFAULT} to 1.}
 
 \item{sdX}{Use this argument to rescale the X-coordinate to have the desired standard deviation (exactly). This is ignored if set to \code{NULL}. \code{DEFAULT} to \code{NULL}.}
 
