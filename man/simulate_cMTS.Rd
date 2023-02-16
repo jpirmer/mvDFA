@@ -4,21 +4,21 @@
 \alias{simulate_cMTS}
 \title{Approximate correlated time series with given Hurst Exponent}
 \usage{
-simulate_cMTS(N, H, Sigma, simulation_process = "FGN0", chol = "chol")
+simulate_cMTS(N, H, Sigma, simulation_process = "FGN0", decomposition = "chol")
 }
 \arguments{
 \item{N}{Length of Times Series}
 
-\item{H}{Hurst Exponents for `d` time series. These are then mixed using the Cholesky decomposition of the given covariance matrix `Sigma`.}
+\item{H}{Hurst Exponents for \code{d} time series. These are then mixed using one of two different decompositions of the given covariance matrix \code{Sigma}.}
 
-\item{Sigma}{Positive semi definite covariance matrix of desired multi dimensional time series.}
+\item{Sigma}{Positive semi definite covariance matrix of desired multi-dimensional time series.}
 
 \item{simulation_process}{The simulation process passed to the \code{longmemo::sim...} function. Can either be \code{longmemo::simFGN.fft} (using FFT) or \code{longmemo::simFGN0} (using fractional gaussian proccesses). FGN0 looks more like \code{rnorm}, when \code{H=0.5}. \code{DEFAULT} to \code{"FGN0"}. Use \code{simulation_process="FGN.fft"} to use the FFT based version.}
 
-\item{chol}{Character whether the Cholesky decomposition \code{"chol"} (or \code{"cholesky"}) should be used or whether the eigen decomposition should be used (\code{chol = "eigen"}). \code{DEFAULT} to \code{"chol"}.}
+\item{decomposition}{Character whether the Cholesky decomposition \code{"chol"} (or \code{"cholesky"}) should be used or whether the eigen decomposition should be used (\code{chol = "eigen"}). \code{DEFAULT} to \code{"chol"}.}
 }
 \value{
-Returns a multivariate correlated time series with covariance matrix `Sigma`. The Hurst exponents are only approximate univariatly, since they result from mixed time series. Uncorrelated time series keep their univariate Hurst exponent `H`.
+Returns a multivariate correlated time series with covariance matrix \code{Sigma}. The Hurst exponents are only approximate univariatly, since they result from mixed time series. Uncorrelated time series keep their univariate Hurst exponents \code{H}.
 }
 \description{
 Approximate correlated time series with given Hurst Exponent
