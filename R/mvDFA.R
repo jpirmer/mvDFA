@@ -63,6 +63,7 @@ mvDFA <- function(X, steps = 50, degree = 1, verbose = F, cores = 1,
 
      if(!brownian)
      {
+          if(any(abs(apply(X,2,sd)-1)>10^-6)) warning("Time Series are not standardized.\nDifferent scaling results in a weighting of the Total Variance Hurst-Exponent.\nMake sure this is desired.")
           Y <- apply(X, 2, function(x) cumsum(x - mean(x))) |> as.matrix()
      }else{
           Y <- as.matrix(X)
@@ -129,9 +130,14 @@ mvDFA <- function(X, steps = 50, degree = 1, verbose = F, cores = 1,
      CovRMS_s <- temp[, -c(1:2)]; rm(temp)
 
      # estimate log-log-regression
-     regtot <- lm(I(log10(RMS_tot))~1+I(log10(S)))
-     reggen <- lm(I(log10(RMS_gen))~1+I(log10(S)))
-     regfull <- lm(I(log10(abs(CovRMS_s)))~1+I(log10(S)))
+     regtot <- lm(I(log10(RMS_tot[RMS_tot > 0 & RMS_tot != Inf]))~1+I(log10(S[RMS_tot > 0 & RMS_tot != Inf])))
+     reggen <- lm(I(log10(RMS_gen[RMS_gen > 0 & RMS_gen != Inf]))~1+I(log10(S[RMS_gen > 0 & RMS_gen != Inf])))
+     CovRMS_s_temp <- CovRMS_s; CovRMS_s_temp[CovRMS_s <= 0 | CovRMS_s == Inf] <- NA
+     regfull <- lm(I(log10(abs(CovRMS_s_temp)))~1+I(log10(S)))
+
+     if(any(RMS_tot <= 0 | RMS_tot == Inf)) warning("RMS_tot is infinite or <= 0 for some S.\nThese are excluded from the log10-log10 regression to estimate the Hurst Exponents.")
+     if(any(RMS_gen <= 0 | RMS_gen == Inf)) warning("RMS_gen is infinite or <= 0 for some S.\nThese are excluded from the log10-log10 regression to estimate the Hurst Exponents.")
+     if(any(CovRMS_s <= 0 | CovRMS_s == Inf)) warning("RMS of variances or abs(covariances) are infinite or <= 0 for some S.\nThese are excluded from the log10-log10 regression to estimate the Hurst Exponents. List-wise Deletion used!")
 
 
      ### create list of covariance matrices
