@@ -135,9 +135,9 @@ mvDFA <- function(X, steps = 50, degree = 1, verbose = F, cores = 1,
      CovRMS_s_temp <- CovRMS_s; CovRMS_s_temp[CovRMS_s <= 0 | CovRMS_s == Inf] <- NA
      regfull <- lm(I(log10(abs(CovRMS_s_temp)))~1+I(log10(S)))
 
-     if(any(RMS_tot <= 0 | RMS_tot == Inf)) warning("RMS_tot is infinite or <= 0 for some S.\nThese are excluded from the log10-log10 regression to estimate the Hurst Exponents.")
-     if(any(RMS_gen <= 0 | RMS_gen == Inf)) warning("RMS_gen is infinite or <= 0 for some S.\nThese are excluded from the log10-log10 regression to estimate the Hurst Exponents.")
-     if(any(CovRMS_s <= 0 | CovRMS_s == Inf)) warning("RMS of variances or abs(covariances) are infinite or <= 0 for some S.\nThese are excluded from the log10-log10 regression to estimate the Hurst Exponents. List-wise Deletion used!")
+     if(any(RMS_tot <= 0 | RMS_tot == Inf)) warning("RMS_tot is infinite or <= 0 for some S.\nThese are excluded from the log10-log10 regression to estimate the Hurst Exponents. Consider rescaling.")
+     if(any(RMS_gen <= 0 | RMS_gen == Inf)) warning("RMS_gen is infinite or <= 0 for some S.\nThese are excluded from the log10-log10 regression to estimate the Hurst Exponents. Consider rescaling.")
+     if(any(CovRMS_s <= 0 | CovRMS_s == Inf)) warning("RMS of variances or abs(covariances) are infinite or <= 0 for some S.\nThese are excluded from the log10-log10 regression to estimate the Hurst Exponents. List-wise Deletion used! Consider rescaling.")
 
 
      ### create list of covariance matrices
