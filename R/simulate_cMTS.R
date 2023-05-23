@@ -7,6 +7,8 @@
 #' @param simulation_process The simulation process passed to the \code{longmemo::sim...} function. Can either be \code{longmemo::simFGN.fft} (using FFT) or \code{longmemo::simFGN0} (using fractional gaussian proccesses). FGN0 looks more like \code{rnorm}, when \code{H=0.5}. \code{DEFAULT} to \code{"FGN0"}. Use \code{simulation_process="FGN.fft"} to use the FFT based version.
 #' @param decomposition Character whether the Cholesky decomposition \code{"chol"} (or \code{"cholesky"}) should be used or whether the eigen decomposition should be used (\code{chol = "eigen"}). \code{DEFAULT} to \code{"chol"}.
 #' @return Returns a multivariate correlated time series with covariance matrix \code{Sigma}. The Hurst exponents are only approximate univariatly, since they result from mixed time series. Uncorrelated time series keep their univariate Hurst exponents \code{H}.
+#' @examples
+#' X <- simulate_cMTS(N = 100, H = .5, Sigma = matrix(c(1, .5, .5, 1), 2, 2))
 #' @export
 
 simulate_cMTS <- function(N, H, Sigma, simulation_process = "FGN0", decomposition = "chol")
@@ -20,15 +22,14 @@ simulate_cMTS <- function(N, H, Sigma, simulation_process = "FGN0", decompositio
      if(length(H) != d) stop("dimensions of H and Sigma do not match!")
 
      ### generate independent and unit variance variable
-
      if(simulation_process == "FGN0")
      {
-          Xi <- scale(sapply(H, FUN = function(h)
-               longmemo::simFGN0(n = N, H = h))) |> as.data.frame()
+          Xi <- as.data.frame(scale(sapply(H, FUN = function(h)
+               longmemo::simFGN0(n = N, H = h))))
      }else if(simulation_process == "FGN.fft")
      {
-          Xi <- scale(sapply(H, FUN = function(h)
-               longmemo::simFGN.fft(n = N, H = h))) |> as.data.frame()
+          Xi <- as.data.frame(scale(sapply(H, FUN = function(h)
+               longmemo::simFGN.fft(n = N, H = h))))
      }
 
 
