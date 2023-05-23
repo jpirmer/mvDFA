@@ -6,7 +6,7 @@ Version: 0.0.3
 Date: 2023-02-16
 Authors@R: c(person("Julien Patrick", "Irmer", email = "jirmer@psych.uni-frankfurt.de",
                     comment = c(ORCID = "0000-0002-7544-6483"),
-                    role = c("aut", "cre")),
+                    role = c("aut", "cre", "cph")),
              person("Sebastian", "Wallot",
                     role = c("aut", "ctb")))
 Author: Julien Patrick Irmer [aut, cre] (<https://orcid.org/0000-0002-7544-6483>)
