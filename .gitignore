@@ -39,3 +39,4 @@ vignettes/*.pdf
 /.Rhistory
 inst/doc
 00 Further Materials/
+revdep/
