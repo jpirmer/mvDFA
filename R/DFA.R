@@ -5,13 +5,13 @@
 #' @import pbapply
 #' @param X Univariate time series.
 #' @param brownian Indicator whether time series is assumed to be brownian (i.e. variance increases proportional to time)
-#' @param steps Maximum number of window sizes. These are spread logarithmically. If time series is short and steps is large, fewer window sizes are drawn. Default to `50`.
-#' @param degree The maximum order of the detrending polynomial in the segments. This influences the smallest window size "minS" such that minS = degree + 2.
-#' @param verbose Indicator whether additional infos should be printed. Default to `TRUE`.
-#' @param cores Number of cores used in computation. Default to `1`.
-#' @return Returns list of Root Mean Squares per window size `RMS_s`, the window sizes `S` and the estimated long memory coefficient `L` - the Hurst Exponent.
+#' @param steps Maximum number of window sizes. These are spread logarithmically. If time series is short and steps is large, fewer window sizes are drawn. Default to \code{50}.
+#' @param degree The maximum order of the detrending polynomial in the segments. This influences the smallest window size \code{minS} such that \code{minS} = \code{degree + 2}.
+#' @param verbose Indicator whether additional infos should be printed. Default to \code{TRUE}.
+#' @param cores Number of cores used in computation. Default to \code{1}.
+#' @return Returns list of Root Mean Squares per window size \code{RMS_s}, the window sizes \code{S} and the estimated long memory coefficient \code{L} - the Hurst Exponent.
 #' @examples
-#' X <- rnorm(10^3) # generate white noise (i.i.d. standard normal variables)
+#' X <- rnorm(10^3) # generate Gaussian white noise (i.i.d. standard normal variables)
 #' DFA(X = X)
 #' @export
 
@@ -72,7 +72,7 @@ DFA <- function(X, steps = 50, brownian = F, degree = 1, verbose = T, cores = 1)
      if(!is.null(cl)) parallel::stopCluster(cl)
 
      reg <- lm(I(log10(RMS_s)) ~ 1 + I(log10(S)))
-     H <- (reg |> coef())[2]
+     H <- coef(reg)[2]
      R2 <- summary(reg)$r.squared
      out <- list("L" = unname(H), "R2" = R2, "RMS_s" = RMS_s, "S" = S)
      class(out) <- "DFA"
