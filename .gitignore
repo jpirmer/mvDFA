@@ -38,5 +38,4 @@ vignettes/*.pdf
 # End of https://www.toptal.com/developers/gitignore/api/r
 /.Rhistory
 inst/doc
-00 Further Materials/
 revdep/
