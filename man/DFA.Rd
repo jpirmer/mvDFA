@@ -9,23 +9,23 @@ DFA(X, steps = 50, brownian = F, degree = 1, verbose = T, cores = 1)
 \arguments{
 \item{X}{Univariate time series.}
 
-\item{steps}{Maximum number of window sizes. These are spread logarithmically. If time series is short and steps is large, fewer window sizes are drawn. Default to `50`.}
+\item{steps}{Maximum number of window sizes. These are spread logarithmically. If time series is short and steps is large, fewer window sizes are drawn. Default to \code{50}.}
 
 \item{brownian}{Indicator whether time series is assumed to be brownian (i.e. variance increases proportional to time)}
 
-\item{degree}{The maximum order of the detrending polynomial in the segments. This influences the smallest window size "minS" such that minS = degree + 2.}
+\item{degree}{The maximum order of the detrending polynomial in the segments. This influences the smallest window size \code{minS} such that \code{minS} = \code{degree + 2}.}
 
-\item{verbose}{Indicator whether additional infos should be printed. Default to `TRUE`.}
+\item{verbose}{Indicator whether additional infos should be printed. Default to \code{TRUE}.}
 
-\item{cores}{Number of cores used in computation. Default to `1`.}
+\item{cores}{Number of cores used in computation. Default to \code{1}.}
 }
 \value{
-Returns list of Root Mean Squares per window size `RMS_s`, the window sizes `S` and the estimated long memory coefficient `L` - the Hurst Exponent.
+Returns list of Root Mean Squares per window size \code{RMS_s}, the window sizes \code{S} and the estimated long memory coefficient \code{L} - the Hurst Exponent.
 }
 \description{
 Analyse univariate time series and estimate long memory
 }
 \examples{
-X <- rnorm(10^3) # generate white noise (i.i.d. standard normal variables)
+X <- rnorm(10^3) # generate Gaussian white noise (i.i.d. standard normal variables)
 DFA(X = X)
 }
