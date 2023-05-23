@@ -23,3 +23,6 @@ Returns a multivariate correlated time series with covariance matrix \code{Sigma
 \description{
 Approximate correlated time series with given Hurst Exponent
 }
+\examples{
+X <- simulate_cMTS(N = 100, H = .5, Sigma = matrix(c(1, .5, .5, 1), 2, 2))
+}
