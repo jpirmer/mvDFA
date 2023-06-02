@@ -11,7 +11,7 @@
 #' @param cores Number of cores used in computation. Default to \code{1}.
 #' @return Returns list of Root Mean Squares per window size \code{RMS_s}, the window sizes \code{S} and the estimated long memory coefficient \code{L} - the Hurst Exponent.
 #' @examples
-#' X <- rnorm(10^3) # generate Gaussian white noise (i.i.d. standard normal variables)
+#' X <- rnorm(500) # generate Gaussian white noise (i.i.d. standard normal variables)
 #' DFA(X = X)
 #' @export
 
