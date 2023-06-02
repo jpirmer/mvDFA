@@ -53,9 +53,9 @@ mvDFA <- function(X, steps = 50, degree = 1, verbose = F, cores = 1,
      if(d == 1) stop("Univariate time series used. Please use DFA() instead!")
      if(n/4 > 21 & steps > 20)
      {
-          S <- c((d + degree + 2):(20+ (d + degree + 1)), logseq(x1 = 20 + (d + degree + 2), x2 = floor(n/4), n =  steps-20)) |> floor() |> unique()  # log spread window sizes
+          S <- unique(floor(c((d + degree + 2):(20+ (d + degree + 1)), logseq(x1 = 20 + (d + degree + 2), x2 = floor(n/4), n =  steps-20))))  # log spread window sizes
      }else{
-          S <- logseq(x1 = (d + degree + 2), x2 = floor(n/4), n =  steps) |> floor() |> unique()
+          S <- unique(floor(logseq(x1 = (d + degree + 2), x2 = floor(n/4), n =  steps)))
      }
      if(length(S) != steps & verbose) cat(paste0("Effective number of window sizes = ", length(S) ,
                                        ",\n which is smaller than number of steps = ", steps, "!"))
@@ -88,15 +88,15 @@ mvDFA <- function(X, steps = 50, degree = 1, verbose = F, cores = 1,
                                          Yt_minus_yvt_1 <- resid(lm(Y[(v-1)*s+1:s, ] ~ detrend))
                                          COV1 <- cov(Yt_minus_yvt_1)/s*(s-1)
                                          RMS_gen_temp1 <- det(COV1)
-                                         RMS_tot_temp1 <- diag(COV1) |> sum()
-                                         CovRMS_vs1 <- c(diag(COV1), COV1[lower.tri(COV1, diag = F)])
+                                         RMS_tot_temp1 <- sum(diag(COV1))
+                                         CovRMS_vs1 <- unname(c(diag(COV1), COV1[lower.tri(COV1, diag = F)]))
 
                                          if(ind != 0){
                                               Yt_minus_yvt_2 <- resid(lm(Y[n - v*s+1:s, ] ~ detrend))
                                               COV2 <- cov(Yt_minus_yvt_2)/s*(s-1)
                                               RMS_gen_temp2 <- det(COV2)
-                                              RMS_tot_temp2 <- diag(COV2) |> sum()
-                                              CovRMS_vs2 <- c(diag(COV2), COV2[lower.tri(COV2, diag = F)])
+                                              RMS_tot_temp2 <- sum(diag(COV2))
+                                              CovRMS_vs2 <- unname(c(diag(COV2), COV2[lower.tri(COV2, diag = F)]))
                                          }else{
                                               RMS_gen_temp2 <- NULL
                                               RMS_tot_temp2 <- NULL
@@ -108,19 +108,15 @@ mvDFA <- function(X, steps = 50, degree = 1, verbose = F, cores = 1,
                                               "CovRMS_vs" = rbind(CovRMS_vs1, CovRMS_vs2))
                                     }, simplify = F)
 
-                                    RMS_tot_temp <- c(); RMS_gen_temp <- c(); CovRMS_vs <- c()
-                                    for(i in 1:length(temp_list))
-                                    {
-                                         RMS_tot_temp <- c(RMS_tot_temp, temp_list[[i]]$RMS_tot_temp)
-                                         RMS_gen_temp <- c(RMS_gen_temp, temp_list[[i]]$RMS_gen_temp)
-                                         CovRMS_vs <- rbind(CovRMS_vs, temp_list[[i]]$CovRMS_vs)
-                                    }
+                                    RMS_tot_temp <- c(sapply(temp_list, "[[", "RMS_tot_temp"))
+                                    RMS_gen_temp <- c(sapply(temp_list, "[[", "RMS_gen_temp"))
+                                    CovRMS_vs <- Reduce(rbind, lapply(temp_list, "[[", "CovRMS_vs"))
 
-                                    CovRMS_s <- sqrt(abs(apply(CovRMS_vs, 2, function(x) mean(x, na.rm = T)))) # abs value for negative covariances
+                                    CovRMS_s <- sqrt(abs(colMeans(CovRMS_vs, na.rm = T))) # abs value for negative covariances
                                     RMS_tot <- sqrt(mean(RMS_tot_temp, na.rm = T)) # trace and mean is the average
                                     RMS_gen <- sqrt(mean(RMS_gen_temp, na.rm = T))
 
-                                    out <- c(RMS_tot, RMS_gen, CovRMS_s)
+                                    return(c(RMS_tot, RMS_gen, CovRMS_s))
                                }) |> t()
 
      if(!is.null(cl)) parallel::stopCluster(cl)

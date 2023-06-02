@@ -33,9 +33,10 @@ DFA <- function(X, steps = 50, brownian = F, degree = 1, verbose = T, cores = 1)
      if(!brownian){Y <- cumsum(X-mean(X))}else{Y <- X}
      if(n/4 > 21 & steps > 20)
      {
-          S <- c((degree + 2):(20+(degree + 1)), pracma::logseq(x1 = 20+(degree + 2), x2 = floor(n/4), n =  steps-20)) |> floor() |> unique()  # log spread window sizes
+          S <- unique(floor(c((degree + 2):(20+(degree + 1)),
+                              pracma::logseq(x1 = 20+(degree + 2), x2 = floor(n/4), n =  steps-20))))  # log spread window sizes
      }else{
-          S <- pracma::logseq(x1 = (degree + 2), x2 = floor(n/4), n =  steps) |> floor() |> unique()
+          S <- unique(floor(pracma::logseq(x1 = (degree + 2), x2 = floor(n/4), n =  steps)))
      }
 
 
