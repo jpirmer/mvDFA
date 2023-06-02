@@ -2,9 +2,16 @@
 % Please edit documentation in R/simulate_MTS.R
 \name{simulate_MTS_mixed_white_pink_brown}
 \alias{simulate_MTS_mixed_white_pink_brown}
-\title{Approximate correlated time series from white, pink and brown noise}
+\title{Approximate correlated time series from white, pink and brown noise from independent realization of normal variates}
 \usage{
-simulate_MTS_mixed_white_pink_brown(N, Sigma, process = "white")
+simulate_MTS_mixed_white_pink_brown(
+  N,
+  Sigma,
+  process = "white",
+  decomposition = "chol",
+  cor_increments = TRUE,
+  X0 = rep(0, ncol(Sigma))
+)
 }
 \arguments{
 \item{N}{Length of multivariate Times Series}
@@ -12,10 +19,24 @@ simulate_MTS_mixed_white_pink_brown(N, Sigma, process = "white")
 \item{Sigma}{Positive semi definite covariance matrix the increments of desired multi dimensional time series. The dimensionality of Sigma sets the dimension of the time series. The variance scale the time. If the variances are all 1, then each data point represents one unit of time.}
 
 \item{process}{Type of process. Can either be "white", "brown" or "pink". Default to "white". If process is a vector, a mixture of the three process is generated, correlated by Sigma.}
+
+\item{decomposition}{Character whether the Cholesky decomposition \code{"chol"} (or \code{"cholesky"}) should be used or whether the eigen decomposition should be used (\code{decomposition = "eigen"}). \code{DEFAULT} to \code{"chol"}.}
+
+\item{cor_increments}{Logical, whether to correlate the increments or the time series themselves. Default to \code{TRUE}.}
+
+\item{X0}{Starting values for the time series if increments are correlated. Default to \code{rep(0, ncol(Sigma))}, i.e., the zero vector of required length.}
 }
 \value{
 Returns a multivariate correlated time series with covariance matrix `Sigma`. The Hurst exponents are only approximate univariatly, since they result from mixed time series. Here, a mixture of "white", "pink" and "brown" noise can be chosen from. Uncorrelated time series keep their univariate Hurst exponent `H`.
 }
 \description{
-Approximate correlated time series from white, pink and brown noise
+Approximation of correlated time series representing "white", "pink" or "brown" noise from independent realization of normal variates. Internally normal variables are simulated using \code{rnorm} and then are cumualted for white or brown noise and we use \code{RobPer::TK95} for the generation of pink noise. We cautiously note that we use empirical scaling (i.e., the variances are scaled to be 1 in the sample not the population), hence the between sample variance may be underrepresented. We further note that the covariance estimates for correlated time series (not using increments) is unstable.
+}
+\examples{
+Sigma <- matrix(.5, 3, 3); diag(Sigma) <- c(1,2,3)
+data <- simulate_MTS_mixed_white_pink_brown(N = 10^5, Sigma = Sigma,
+                                            process = c("white", "pink", "brown"),
+                                            cor_increments = FALSE)
+cov(data) # unstable covariances
+cov(apply(data,2,diff))
 }
