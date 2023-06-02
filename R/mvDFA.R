@@ -33,7 +33,8 @@
 #' Sigma <- matrix(.5, 3, 3); diag(Sigma) <- 1
 #' # generate correlated Gaussian white noise (i.i.d. multivariate normal variables)
 #' X <- mvtnorm::rmvnorm(n = 500, sigma = Sigma)
-#' mvDFA(X = X)
+#' mvDFA(X = X, steps = 5) # steps = 5 is only for demonstration,
+#'                         # use many steps instead, e.g. steps = 50!
 #' @export
 
 mvDFA <- function(X, steps = 50, degree = 1, verbose = F, cores = 1,

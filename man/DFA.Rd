@@ -26,6 +26,7 @@ Returns list of Root Mean Squares per window size \code{RMS_s}, the window sizes
 Analyse univariate time series and estimate long memory
 }
 \examples{
-X <- rnorm(10^3) # generate Gaussian white noise (i.i.d. standard normal variables)
-DFA(X = X)
+X <- rnorm(500) # generate Gaussian white noise (i.i.d. standard normal variables)
+DFA(X = X, steps = 5) # steps = 5 is only for demonstration,
+                        # use many steps instead, e.g. steps = 50!
 }
