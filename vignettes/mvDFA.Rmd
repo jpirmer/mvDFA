@@ -48,11 +48,13 @@ Simulate from the covariance matrix with approximate univariate Hurst-exponents 
 
 ```{r}
 set.seed(2023)
-X <- simulate_cMTS(N = 10^3, H = c(.2, .5, .7, .9), Sigma = Sigma, simulation_process = "FGN0", decomposition = "chol")
+X <- simulate_cMTS(N = 10^3, H = c(.2, .5, .7, .9), 
+                   Sigma = Sigma, simulation_process = "FGN0", 
+                   decomposition = "chol", cor_increments = FALSE)
 head(X)
 ```
 
-`simulation_process = "FGN0"` uses `longmemo::simFGN0` to generate independent (Fractional) Gaussian Processes, which are then mixed using the Cholesky decomposition $D$ of $\Sigma := DD'$. Changing this argument to `simulation_process = "FGN.fft"` uses `longmemo::simFGN.fft` (using FFT) to generate independent (Fractional) Gaussian Processes, which are then mixed using the Cholesky decomposition $D$ of $\Sigma := DD'$. The differences may be inspected here:
+`simulation_process = "FGN0"` uses `longmemo::simFGN0` to generate independent (Fractional) Gaussian Processes, which are then mixed using the Cholesky decomposition $D$ of $\Sigma := DD'$. Changing this argument to `simulation_process = "FGN.fft"` uses `longmemo::simFGN.fft` (using FFT) to generate independent (Fractional) Gaussian Processes, which are then mixed using the Cholesky decomposition $D$ of $\Sigma := DD'$ via `decomposition = "chol"`. The differences may be inspected here:
 
 ```{r, fig.align='center', fig.height=3, fig.width=4}
 x1 <- simulate_cMTS(N = 3*10^2, H = c(.5), Sigma = as.matrix(1), simulation_process = "FGN0")
@@ -63,7 +65,9 @@ plot(x2$X1, main = "H = 0.5 and FGN.fft", type = "l")
 
 Note: the true Hurst Exponents might be slightly off, since the mixing (weighted sums) of the time series makes them slightly more normal (due to the central limits theorem). Hence, small Hurst-exponents ($H<0.5$) tend to be upwards biased, while larger Hurst-exponents tend to be downward biased ($H>0.5$). 
 
-Further, the use of Cholesky might influence the generation of data in a different way than another decomposition of $\Sigma$ would. 
+Further, the use of Cholesky might influence the generation of data in a different way than another decomposition of $\Sigma$ would. An alternative is the eigen-value (or singular value) decomopsition via `decomposition = "eigen"`. Further research is needed!
+
+Finally, we did not correlated the increments but the whole time series (`cor_increments = FALSE`); if instead increments should be correlated use `cor_increments = FALSE`.
 
 
 ### Estimate multivariate extensions of Hurst exponent for correlated time series
@@ -75,18 +79,46 @@ mvDFA_result <- mvDFA(X = X, steps = 50, cores = 1)
 mvDFA_result
 ```
 
+The slope of the log-log regression of the root-mean square fluctions $RMS$ vs. window size $s$ gives an estimate for the long memory coefficient $L$ within the data.
+The output argument `Ltot` corresponds to the total variance approach, which uses root-mean of the sum of the diagonal elements of the covariance matrix $C_{\nu,s}$ of the  detrended fluctuation object $Y_{\nu,s}$ within each window to compute the corresponding root mean square fluctuation $RMS_\text{tot}(\nu,s)$ averaged across all the subsequences $\nu$ of length $s$.   `Lgen` corresponds to the generalized variance approach, which uses root-mean of the determinant of the covariance matrix $C_{\nu,s}$ of the  detrended fluctuation object $Y_{\nu,s}$ within each window to compute the corresponding root mean square fluctuation $RMS_\text{tot}(\nu,s)$ averaged across all the subsequences $\nu$ of length $s$. Further, we output the corresponding coefficient for all variances and covariances individually (see `Lfull`), averaged across all univariate time series (see `LmeanUni`) and done for each univariate time series individually (see `univariate_DFA`).
+
+Further arguments hidden in the primary output are the corresponding $R^2$ per analysis approach:
+
+```{r}
+mvDFA_result[6:10]
+```
 
 
+Further, the used RMS objects and the used window sizes can be extracted using the following arguments:
+
+```{r}
+mvDFA_result$S
+mvDFA_result$RMS_tot
+mvDFA_result$RMS_gen
+head(mvDFA_result$CovRMS_s)
+```
+
+which may be used to compute the Hurst exponents by hand or to display the log-log-plots. We present this for the total and the generalized approach:
+
+```{r, fig.align='center', fig.height=5, fig.width=5}
+# total
+df_tot <- data.frame(mvDFA_result[c("S", "RMS_tot")])
+reg_tot <- lm(I(log10(RMS_tot)) ~ 1 + I(log10(S)), data = df_tot)
+coef(reg_tot)[2]
+mvDFA_result$Ltot
+
+plot(log10(df_tot))
+abline(reg_tot)
+```
 
 
+```{r, fig.align='center', fig.height=5, fig.width=5}
+# generalized
+df_gen <- data.frame(mvDFA_result[c("S", "RMS_gen")])
+reg_gen <- lm(I(log10(RMS_gen)) ~ 1 + I(log10(S)), data = df_gen)
+coef(reg_gen)[2]/4
+mvDFA_result$Lgen
 
-```{r,eval=FALSE}
-
-par(mfrow=c(2,3))
-plot(out$time, out$X, type = "l", main = "X vs. time")
-plot(out$time, out$Y, type = "l", main = "Y vs. time")
-plot(out$time, out$Z, type = "l", main = "Y vs. time")
-plot(out$X, out$Y, type = "l", main = "Y vs. X")
-plot(out$X, out$Z, type = "l", main = "Z vs. X")
-plot(out$Y, out$Z, type = "l", main = "Z vs. Y")
+plot(log10(df_gen))
+abline(reg_gen)
 ```
