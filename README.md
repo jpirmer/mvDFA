@@ -15,6 +15,6 @@ Use
 vignette("mvDFA")
 ```
 
-to be able to see the documentation linked in "Getting Started". 
+to be able to see the documentation. 
 
 
