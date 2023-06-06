@@ -6,7 +6,7 @@ This is just a beta version, so please report any bugs or issues.
 ## Install the latest working version from Github
 ```{r}
 install.packages("devtools")
-devtools::install_github("jpirmer/mvDFA")
+devtools::install_github("jpirmer/mvDFA", build_vignettes = T)
 ```
 
 Use 
