@@ -39,3 +39,5 @@ vignettes/*.pdf
 /.Rhistory
 inst/doc
 revdep/
+/doc/
+/Meta/

@@ -1,6 +1,8 @@
 ---
 title: "mvDFA"
-subtitle: "multivariate Detrended Fluctuation Analysis using Package mvDFA"
+subtitle: "MultiVariate Detrended Fluctuation Analysis using Package `mvDFA`"
+author: "Julien P. Irmer"
+date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{mvDFA}
@@ -22,10 +24,8 @@ This requires the package `devtools`. The following code installs `devtools`, if
 
 ```{r, eval=FALSE}
 if(!"devtools" %in% installed.packages()) install.packages("devtools")
-devtools::install_github("jpirmer/mvDFA", build_vignettes = T)
+devtools::install_github("jpirmer/mvDFA")
 ```
-
-Use `build_vignettes = T` to be able to see the documentation linked in "Getting Started". 
 
 Load the package:
 
