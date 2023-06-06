@@ -57,9 +57,13 @@ head(X)
 `simulation_process = "FGN0"` uses `longmemo::simFGN0` to generate independent (Fractional) Gaussian Processes, which are then mixed using the Cholesky decomposition $D$ of $\Sigma := DD'$. Changing this argument to `simulation_process = "FGN.fft"` uses `longmemo::simFGN.fft` (using FFT) to generate independent (Fractional) Gaussian Processes, which are then mixed using the Cholesky decomposition $D$ of $\Sigma := DD'$ via `decomposition = "chol"`. The differences may be inspected here:
 
 ```{r, fig.align='center', fig.height=3, fig.width=4}
-x1 <- simulate_cMTS(N = 3*10^2, H = c(.5), Sigma = as.matrix(1), simulation_process = "FGN0")
+x1 <- simulate_cMTS(N = 3*10^2, H = c(.5), Sigma = as.matrix(1), 
+                    simulation_process = "FGN0",
+                    cor_increments = FALSE)
 plot(x1$X1, main = "H = 0.5 and FGN0", type = "l")
-x2 <- simulate_cMTS(N = 3*10^2, H = c(.5), Sigma = as.matrix(1), simulation_process = "FGN.fft")
+x2 <- simulate_cMTS(N = 3*10^2, H = c(.5), Sigma = as.matrix(1), 
+                    simulation_process = "FGN.fft",
+                    cor_increments = FALSE)
 plot(x2$X1, main = "H = 0.5 and FGN.fft", type = "l")
 ```
 
@@ -72,10 +76,10 @@ Finally, we did not correlated the increments but the whole time series (`cor_in
 
 ### Estimate multivariate extensions of Hurst exponent for correlated time series
 
-The `mvDFA` function needs only the time series in long format as a `matrix` or `data.frame` object. Multiple `cores` can be used (maximum is `parallel::detectCores()`), which reduces computation time drastically for longer timer series. The `steps` argument manipulates the number of window sizes, which are seperated logarithmically. Larger numbers of steps result in more precise estimates of the extended Hurst exponents.
+The `mvDFA` function needs only the time series in long format as a `matrix` or `data.frame` object. Multiple `cores` can be used (maximum is `parallel::detectCores()`), which reduces computation time drastically for longer timer series. The `steps` argument manipulates the number of window sizes, which are seperated logarithmically. Larger numbers of steps result in more precise estimates of the extended Hurst exponents, but require more computation time. The `degree` option specifies the degree of the polynomial of the time trend used for detrending. 
 
 ```{r, message=FALSE, warning=FALSE}
-mvDFA_result <- mvDFA(X = X, steps = 50, cores = 1)
+mvDFA_result <- mvDFA(X = X, steps = 50, cores = 1, degree = 1)
 mvDFA_result
 ```
 
