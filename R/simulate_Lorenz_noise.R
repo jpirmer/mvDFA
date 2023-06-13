@@ -26,7 +26,7 @@ simulate_Lorenz_noise <- function(N = 1000, delta_t = NULL, tmax = 50,
                          sdnoiseX, sdnoiseY, sdnoiseZ,
                          s = 10, r = 28, b = 8/3,
                          naive = F,
-                         return_time = T)
+                         return_time = TRUE)
 {
 
      ### prepare function ----------------------------------------------------

@@ -113,9 +113,9 @@ mvDFA <- function(X, steps = 50, degree = 1, verbose = F, cores = 1,
                                     RMS_gen_temp <- c(sapply(temp_list, "[[", "RMS_gen_temp"))
                                     CovRMS_vs <- Reduce(rbind, lapply(temp_list, "[[", "CovRMS_vs"))
 
-                                    CovRMS_s <- sqrt(abs(colMeans(CovRMS_vs, na.rm = T))) # abs value for negative covariances
-                                    RMS_tot <- sqrt(mean(RMS_tot_temp, na.rm = T)) # trace and mean is the average
-                                    RMS_gen <- sqrt(mean(RMS_gen_temp, na.rm = T))
+                                    CovRMS_s <- sqrt(abs(colMeans(CovRMS_vs, na.rm = TRUE))) # abs value for negative covariances
+                                    RMS_tot <- sqrt(mean(RMS_tot_temp, na.rm = TRUE)) # trace and mean is the average
+                                    RMS_gen <- sqrt(mean(RMS_gen_temp, na.rm = TRUE))
 
                                     return(c(RMS_tot, RMS_gen, CovRMS_s))
                                }) |> t()
@@ -138,7 +138,7 @@ mvDFA <- function(X, steps = 50, degree = 1, verbose = F, cores = 1,
 
 
      ### create list of covariance matrices
-     if(covlist == T){
+     if(covlist == TRUE){
           CovRMS_list <- list()
           for(i in 1:dim(CovRMS_s)[1])
           {

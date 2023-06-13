@@ -16,7 +16,7 @@
 #'                         # use many steps instead, e.g. steps = 50!
 #' @export
 
-DFA <- function(X, steps = 50, brownian = F, degree = 1, verbose = T, cores = 1)
+DFA <- function(X, steps = 50, brownian = F, degree = 1, verbose = TRUE, cores = 1)
 {
      ### checking input ---
      if(!is.numeric(cores)) stop("cores needs to be numeric.")
@@ -69,8 +69,8 @@ DFA <- function(X, steps = 50, brownian = F, degree = 1, verbose = T, cores = 1)
                                                             }else{v2 <- NULL}
                                                             c(v1, v2)
                                                        }, simplify = F)
-                                      sqrt(mean(unlist(RMS_vs), na.rm = T))
-                                 }, simplify = T)
+                                      sqrt(mean(unlist(RMS_vs), na.rm = TRUE))
+                                 }, simplify = TRUE)
      if(!is.null(cl)) parallel::stopCluster(cl)
 
      reg <- lm(I(log10(RMS_s)) ~ 1 + I(log10(S)))

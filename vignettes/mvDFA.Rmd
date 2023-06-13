@@ -48,7 +48,8 @@ library(mvDFA)
 
 Choose a covariance matrix $\Sigma$
 ```{r}
-Sigma <- Sigma <- matrix(.5, 4, 4); diag(Sigma) <- 1
+Sigma <- Sigma <- matrix(.5, 4, 4)
+diag(Sigma) <- 1
 Sigma[3,4] <- Sigma[4,3] <- -.3
 Sigma
 ```
@@ -79,7 +80,7 @@ Note: the true Hurst Exponents might be slightly off, since the mixing (weighted
 
 Further, the use of Cholesky might influence the generation of data in a different way than another decomposition of $\Sigma$ would. An alternative is the eigen-value (or singular value) decomopsition via `decomposition = "eigen"`. Further research is needed!
 
-Finally, we did not correlated the increments but the whole time series (`cor_increments = FALSE`); if instead increments should be correlated use `cor_increments = FALSE`.
+Finally, we did not correlated the increments but the whole time series (`cor_increments = FALSE`), if instead increments should be correlated use `cor_increments = FALSE`.
 
 
 ### Estimate multivariate extensions of Hurst exponent for correlated time series
