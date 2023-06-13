@@ -1,4 +1,4 @@
-#' Analyse multivariate correlated time series and estimate long memory
+#' Analyze multivariate correlated time series and estimate long memory
 #' @import stats
 #' @importFrom pracma logseq
 #' @import parallel
@@ -7,7 +7,7 @@
 #' @param brownian Indicator whether time series are assumed to be brownian (i.e. variance increases proportional to time)
 #' @param steps Maximum number of window sizes. These are spread logarithmically. If time series is short and steps is large, fewer window sizes are drawn. Default to \code{50}. The dimensions (\code{ncol(X)}) and the \code{degree} influence the smallest possible window size.
 #' @param degree The maximum order of the detrending polynomial in the segments. This influences the smallest window size \code{minS} such that \code{minS} = \code{d + degree + 2}, where \code{d} is the dimension of the time series.
-#' @param verbose Indicator whether additional infos should be printed. Default to \code{TRUE}.
+#' @param verbose Indicator whether additional info should be printed. Default to \code{TRUE}.
 #' @param cores Number of cores used in computation. Default to \code{1}.
 #' @param covlist Indicator whether covariance of the time series per window size should be saved in a list.
 #' @returns
@@ -17,7 +17,7 @@
 #' \item{Lgen}{the generalized approach}
 #' \item{Lfull}{the average covariance approach}
 #' \item{LmeanUni}{average Hurst exponent across all time series}
-#' \item{univariate_DFA}{univaraite Hurst exponents}
+#' \item{univariate_DFA}{univariate Hurst exponents}
 #' \item{R2tot}{R-squared of total variance approach in regression of log10(RMS) vs log10(S)}
 #' \item{R2gen}{R-squared of generalized variance approach in regression of log10(RMS) vs log10(S)}
 #' \item{R2full}{R-squared of  covariance approach in regression of log10(RMS) vs log10(S)}

@@ -2,9 +2,9 @@
 % Please edit documentation in R/DFA.R
 \name{DFA}
 \alias{DFA}
-\title{Analyse univariate time series and estimate long memory}
+\title{Analyze univariate time series and estimate long memory}
 \usage{
-DFA(X, steps = 50, brownian = F, degree = 1, verbose = T, cores = 1)
+DFA(X, steps = 50, brownian = F, degree = 1, verbose = TRUE, cores = 1)
 }
 \arguments{
 \item{X}{Univariate time series.}
@@ -15,7 +15,7 @@ DFA(X, steps = 50, brownian = F, degree = 1, verbose = T, cores = 1)
 
 \item{degree}{The maximum order of the detrending polynomial in the segments. This influences the smallest window size \code{minS} such that \code{minS} = \code{degree + 2}.}
 
-\item{verbose}{Indicator whether additional infos should be printed. Default to \code{TRUE}.}
+\item{verbose}{Indicator whether additional info should be printed. Default to \code{TRUE}.}
 
 \item{cores}{Number of cores used in computation. Default to \code{1}.}
 }
@@ -23,7 +23,7 @@ DFA(X, steps = 50, brownian = F, degree = 1, verbose = T, cores = 1)
 Returns list of Root Mean Squares per window size \code{RMS_s}, the window sizes \code{S} and the estimated long memory coefficient \code{L} - the Hurst Exponent.
 }
 \description{
-Analyse univariate time series and estimate long memory
+Analyze univariate time series and estimate long memory
 }
 \examples{
 X <- rnorm(500) # generate Gaussian white noise (i.i.d. standard normal variables)

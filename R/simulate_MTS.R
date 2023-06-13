@@ -1,4 +1,4 @@
-#' Approximate correlated time series from white, pink and brown noise from independent realization of normal variates
+#' Approximate correlated time series from white, pink and brown noise from independent realization of normal variables
 #' @import stats
 #' @import RobPer
 #' @import mvtnorm
@@ -9,7 +9,7 @@
 #' @param cor_increments Logical, whether to correlate the increments or the time series themselves. Default to \code{TRUE}.
 #' @param X0 Starting values for the time series if increments are correlated. Default to \code{rep(0, ncol(Sigma))}, i.e., the zero vector of required length.
 #' @description
-#' Approximation of correlated time series representing "white", "pink" or "brown" noise from independent realization of normal variates. Internally normal variables are simulated using \code{rnorm} and then are cumualted for white or brown noise and we use \code{RobPer::TK95} for the generation of pink noise. We cautiously note that we use empirical scaling (i.e., the variances are scaled to be 1 in the sample not the population), hence the between sample variance may be underrepresented. We further note that the covariance estimates for correlated time series (not using increments) is unstable.
+#' Approximation of correlated time series representing "white", "pink" or "brown" noise from independent realization of normal variates Internally normal variables are simulated using \code{rnorm} and then are cumulated for white or brown noise and we use \code{RobPer::TK95} for the generation of pink noise. We cautiously note that we use empirical scaling (i.e., the variances are scaled to be 1 in the sample not the population), hence the between sample variance may be underrepresented. We further note that the covariance estimates for correlated time series (not using increments) is unstable.
 #'
 #'@examples
 #' Sigma <- matrix(.5, 3, 3); diag(Sigma) <- c(1,2,3)
@@ -18,7 +18,7 @@
 #'                                             cor_increments = FALSE)
 #' cov(data) # unstable covariances
 #' cov(apply(data,2,diff))
-#' @return Returns a multivariate correlated time series with covariance matrix `Sigma`. The Hurst exponents are only approximate univariatly, since they result from mixed time series. Here, a mixture of "white", "pink" and "brown" noise can be chosen from. Uncorrelated time series keep their univariate Hurst exponent `H`.
+#' @return Returns a multivariate correlated time series with covariance matrix `Sigma`. The Hurst exponents are only approximating the univariate ones, since they result from mixed time series. Here, a mixture of "white", "pink" and "brown" noise can be chosen from. Uncorrelated time series keep their univariate Hurst exponent `H`.
 #' @export
 
 simulate_MTS_mixed_white_pink_brown <- function(N, Sigma, process = "white",decomposition = "chol", cor_increments = TRUE, X0 = rep(0, ncol(Sigma)))

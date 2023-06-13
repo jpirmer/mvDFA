@@ -2,7 +2,7 @@
 % Please edit documentation in R/mvDFA.R
 \name{mvDFA}
 \alias{mvDFA}
-\title{Analyse multivariate correlated time series and estimate long memory}
+\title{Analyze multivariate correlated time series and estimate long memory}
 \usage{
 mvDFA(
   X,
@@ -21,7 +21,7 @@ mvDFA(
 
 \item{degree}{The maximum order of the detrending polynomial in the segments. This influences the smallest window size \code{minS} such that \code{minS} = \code{d + degree + 2}, where \code{d} is the dimension of the time series.}
 
-\item{verbose}{Indicator whether additional infos should be printed. Default to \code{TRUE}.}
+\item{verbose}{Indicator whether additional info should be printed. Default to \code{TRUE}.}
 
 \item{cores}{Number of cores used in computation. Default to \code{1}.}
 
@@ -36,7 +36,7 @@ An object of class \code{mvDFA} containing long memory coefficients (Hurst expon
 \item{Lgen}{the generalized approach}
 \item{Lfull}{the average covariance approach}
 \item{LmeanUni}{average Hurst exponent across all time series}
-\item{univariate_DFA}{univaraite Hurst exponents}
+\item{univariate_DFA}{univariate Hurst exponents}
 \item{R2tot}{R-squared of total variance approach in regression of log10(RMS) vs log10(S)}
 \item{R2gen}{R-squared of generalized variance approach in regression of log10(RMS) vs log10(S)}
 \item{R2full}{R-squared of  covariance approach in regression of log10(RMS) vs log10(S)}
@@ -49,7 +49,7 @@ An object of class \code{mvDFA} containing long memory coefficients (Hurst expon
 \item{CovRMS_list}{a list of covariance matrices per \code{S} may be returned}
 }
 \description{
-Analyse multivariate correlated time series and estimate long memory
+Analyze multivariate correlated time series and estimate long memory
 }
 \examples{
 Sigma <- matrix(.5, 3, 3); diag(Sigma) <- 1

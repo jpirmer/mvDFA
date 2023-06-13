@@ -1,4 +1,4 @@
-#' Analyse univariate time series and estimate long memory
+#' Analyze univariate time series and estimate long memory
 #' @import stats
 #' @importFrom pracma logseq
 #' @import parallel
@@ -7,7 +7,7 @@
 #' @param brownian Indicator whether time series is assumed to be brownian (i.e. variance increases proportional to time)
 #' @param steps Maximum number of window sizes. These are spread logarithmically. If time series is short and steps is large, fewer window sizes are drawn. Default to \code{50}.
 #' @param degree The maximum order of the detrending polynomial in the segments. This influences the smallest window size \code{minS} such that \code{minS} = \code{degree + 2}.
-#' @param verbose Indicator whether additional infos should be printed. Default to \code{TRUE}.
+#' @param verbose Indicator whether additional info should be printed. Default to \code{TRUE}.
 #' @param cores Number of cores used in computation. Default to \code{1}.
 #' @return Returns list of Root Mean Squares per window size \code{RMS_s}, the window sizes \code{S} and the estimated long memory coefficient \code{L} - the Hurst Exponent.
 #' @examples

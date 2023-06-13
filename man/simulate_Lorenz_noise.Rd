@@ -21,7 +21,7 @@ simulate_Lorenz_noise(
   r = 28,
   b = 8/3,
   naive = F,
-  return_time = T
+  return_time = TRUE
 )
 }
 \arguments{
@@ -49,11 +49,11 @@ simulate_Lorenz_noise(
 
 \item{sdnoiseZ}{Standard deviation of Gaussian noise of Z-coordinate. If set to \code{0}, no noise is created.}
 
-\item{s}{s-parameter of the Lorenz ODE. See Vigniette for further details. \code{DEFAULT} to \code{10}, which is the original value chosen by Lorenz.}
+\item{s}{s-parameter of the Lorenz ODE. See Vignette for further details. \code{DEFAULT} to \code{10}, which is the original value chosen by Lorenz.}
 
-\item{r}{r-parameter of the Lorenz ODE. See Vigniette for further details. \code{DEFAULT} to \code{28}, which is the original value chosen by Lorenz.}
+\item{r}{r-parameter of the Lorenz ODE. See Vignette for further details. \code{DEFAULT} to \code{28}, which is the original value chosen by Lorenz.}
 
-\item{b}{b-parameter of the Lorenz ODE. See Vigniette for further details. \code{DEFAULT} to \code{8/3}, which is the original value chosen by Lorenz.}
+\item{b}{b-parameter of the Lorenz ODE. See Vignette for further details. \code{DEFAULT} to \code{8/3}, which is the original value chosen by Lorenz.}
 
 \item{naive}{Logical whether naive calculation should be used. \code{DEFAULT} to \code{FALSE}.}
 

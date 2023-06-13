@@ -1,6 +1,6 @@
 ---
 title: "mvDFA"
-subtitle: "MultiVariate Detrended Fluctuation Analysis using Package `mvDFA`"
+subtitle: "Multi-Variate Detrended Fluctuation Analysis using Package `mvDFA`"
 author: "Julien P. Irmer"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -27,7 +27,7 @@ Install from CRAN:
 install.packages("mvDFA")
 ```
 
-## Install the latest working version from Github
+## Install the latest working version from GitHub
 This requires the package `devtools`. The following code installs `devtools`, if it is not installed.
 
 ```{r, eval=FALSE}
@@ -78,21 +78,21 @@ plot(x2$X1, main = "H = 0.5 and FGN.fft", type = "l")
 
 Note: the true Hurst Exponents might be slightly off, since the mixing (weighted sums) of the time series makes them slightly more normal (due to the central limits theorem). Hence, small Hurst-exponents ($H<0.5$) tend to be upwards biased, while larger Hurst-exponents tend to be downward biased ($H>0.5$). 
 
-Further, the use of Cholesky might influence the generation of data in a different way than another decomposition of $\Sigma$ would. An alternative is the eigen-value (or singular value) decomopsition via `decomposition = "eigen"`. Further research is needed!
+Further, the use of Cholesky might influence the generation of data in a different way than another decomposition of $\Sigma$ would. An alternative is the eigen-value (or singular value) decomposition via `decomposition = "eigen"`. Further research is needed!
 
 Finally, we did not correlated the increments but the whole time series (`cor_increments = FALSE`), if instead increments should be correlated use `cor_increments = FALSE`.
 
 
 ### Estimate multivariate extensions of Hurst exponent for correlated time series
 
-The `mvDFA` function needs only the time series in long format as a `matrix` or `data.frame` object. Multiple `cores` can be used (maximum is `parallel::detectCores()`), which reduces computation time drastically for longer timer series. The `steps` argument manipulates the number of window sizes, which are seperated logarithmically. Larger numbers of steps result in more precise estimates of the extended Hurst exponents, but require more computation time. The `degree` option specifies the degree of the polynomial of the time trend used for detrending. 
+The `mvDFA` function needs only the time series in long format as a `matrix` or `data.frame` object. Multiple `cores` can be used (maximum is `parallel::detectCores()`), which reduces computation time drastically for longer timer series. The `steps` argument manipulates the number of window sizes, which are separated logarithmically. Larger numbers of steps result in more precise estimates of the extended Hurst exponents, but require more computation time. The `degree` option specifies the degree of the polynomial of the time trend used for detrending. 
 
 ```{r, message=FALSE, warning=FALSE}
 mvDFA_result <- mvDFA(X = X, steps = 50, cores = 1, degree = 1)
 mvDFA_result
 ```
 
-The slope of the log-log regression of the root-mean square fluctions $RMS$ vs. window size $s$ gives an estimate for the long memory coefficient $L$ within the data.
+The slope of the log-log regression of the root-mean square fluctuations $RMS$ vs. window size $s$ gives an estimate for the long memory coefficient $L$ within the data.
 The output argument `Ltot` corresponds to the total variance approach, which uses root-mean of the sum of the diagonal elements of the covariance matrix $C_{\nu,s}$ of the  detrended fluctuation object $Y_{\nu,s}$ within each window to compute the corresponding root mean square fluctuation $RMS_\text{tot}(\nu,s)$ averaged across all the subsequences $\nu$ of length $s$.   `Lgen` corresponds to the generalized variance approach, which uses root-mean of the determinant of the covariance matrix $C_{\nu,s}$ of the  detrended fluctuation object $Y_{\nu,s}$ within each window to compute the corresponding root mean square fluctuation $RMS_\text{tot}(\nu,s)$ averaged across all the subsequences $\nu$ of length $s$. Further, we output the corresponding coefficient for all variances and covariances individually (see `Lfull`), averaged across all univariate time series (see `LmeanUni`) and done for each univariate time series individually (see `univariate_DFA`).
 
 Further arguments hidden in the primary output are the corresponding $R^2$ per analysis approach:

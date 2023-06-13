@@ -4,14 +4,14 @@
 #' @param N Length of Times Series
 #' @param H Hurst Exponents for \code{d} time series. These are then mixed using one of two different decompositions of the given covariance matrix \code{Sigma}.
 #' @param Sigma Positive semi definite covariance matrix of desired multi-dimensional time series.
-#' @param simulation_process The simulation process passed to the \code{longmemo::sim...} function. Can either be \code{longmemo::simFGN.fft} (using FFT) or \code{longmemo::simFGN0} (using fractional gaussian proccesses). FGN0 looks more like \code{rnorm}, when \code{H=0.5}. \code{DEFAULT} to \code{"FGN0"}. Use \code{simulation_process="FGN.fft"} to use the FFT based version.
+#' @param simulation_process The simulation process passed to the \code{longmemo::sim...} function. Can either be \code{longmemo::simFGN.fft} (using FFT) or \code{longmemo::simFGN0} (using fractional gaussian processes). FGN0 looks more like \code{rnorm}, when \code{H=0.5}. \code{DEFAULT} to \code{"FGN0"}. Use \code{simulation_process="FGN.fft"} to use the FFT based version.
 #' @param decomposition Character whether the Cholesky decomposition \code{"chol"} (or \code{"cholesky"}) should be used or whether the eigen decomposition should be used (\code{decomposition = "eigen"}). \code{DEFAULT} to \code{"chol"}.
 #' @param cor_increments Logical, whether to correlate the increments or the time series themselves. Default to \code{TRUE}.
 #' @param X0 Starting values for the time series if increments are correlated. Default to \code{rep(0, ncol(Sigma))}, i.e., the zero vector of required length.
 #' @description
 #' Approximation of correlated time series with given "Hurst" exponents. Internally \code{longmemo::simFGN0} or \code{longmemo::simFGN.fft} are used which simulate Gaussian series by generating fractional ARIMA(0,h,0) models (with $h=H-1/2$, \code{longmemo::FGN0}), or fractional Gaussian noise \code{longmemo::FGN.fft}. We cautiously note that we use empirical scaling (i.e., the variances are scaled to be 1 in the sample not the population), hence the between sample variance may be underrepresented. We further note that the covariance estimates for correlated time series (not using increments) is unstable.
 #'
-#' @return Returns a multivariate correlated time series with covariance matrix \code{Sigma}. The Hurst exponents are only approximate univariatly, since they result from mixed time series. Uncorrelated time series keep their univariate Hurst exponents \code{H}.
+#' @return Returns a multivariate correlated time series with covariance matrix \code{Sigma}. The Hurst exponents are only approximating the univariate ones, since they result from mixed time series. Uncorrelated time series keep their univariate Hurst exponents \code{H}.
 #'@examples
 #' Sigma <- matrix(.5, 3, 3); diag(Sigma) <- c(1,2,3)
 #' data <- simulate_cMTS(N = 10^5, Sigma = Sigma, H = c(.2, .5, .7),
