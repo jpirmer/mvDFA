@@ -12,7 +12,7 @@ Author: Julien Patrick Irmer [aut, cre, cph] (<https://orcid.org/0000-0002-7544-
 Maintainer: Julien Patrick Irmer <jirmer@psych.uni-frankfurt.de>
 URL: https://github.com/jpirmer/mvDFA
 BugReports: https://github.com/jpirmer/mvDFA/issues
-License: GPL-3 + file LICENSE
+License: GPL-3 
 Imports: longmemo, stats, pbapply, deSolve, RobPer, mvtnorm, pracma
 Encoding: UTF-8
 RoxygenNote: 7.2.3
