@@ -1,7 +1,10 @@
-## Revision of First submission 15.06.2023
+## R CMD check results
 
-* Deleted licence file and "+ file LICENSE" in Description
-
-## First submission 14.06.2023
+0 errors | 0 warnings | 1 note
 
 * This is a new release.
+
+
+## 0.0.4 Submission 
+
+After manual feedback from CRAN, I deleted the licence file and "+ file LICENSE" in the Description.
