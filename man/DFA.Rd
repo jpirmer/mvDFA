@@ -2,9 +2,9 @@
 % Please edit documentation in R/DFA.R
 \name{DFA}
 \alias{DFA}
-\title{Analyze univariate time series and estimate long memory}
+\title{Analyze univariate time series and estimate long memory using Detrended Fluctuations Analysis (DFA; Peng et al., 1995)}
 \usage{
-DFA(X, steps = 50, brownian = F, degree = 1, verbose = TRUE, cores = 1)
+DFA(X, steps = 50, brownian = FALSE, degree = 1, verbose = TRUE, cores = 1)
 }
 \arguments{
 \item{X}{Univariate time series.}
@@ -23,10 +23,13 @@ DFA(X, steps = 50, brownian = F, degree = 1, verbose = TRUE, cores = 1)
 Returns list of Root Mean Squares per window size \code{RMS_s}, the window sizes \code{S} and the estimated long memory coefficient \code{L} - the Hurst Exponent.
 }
 \description{
-Analyze univariate time series and estimate long memory
+Analyze univariate time series and estimate long memory using Detrended Fluctuations Analysis (DFA; Peng et al., 1995)
 }
 \examples{
 X <- rnorm(500) # generate Gaussian white noise (i.i.d. standard normal variables)
 DFA(X = X, steps = 5) # steps = 5 is only for demonstration,
                         # use many steps instead, e.g. steps = 50!
+}
+\references{
+Peng, C. K., Havlin, S., Stanley, H. E., & Goldberger, A. L. (1995). Quantification of scaling exponents and crossover phenomena in nonstationary heartbeat time-series. Chaos, 5, 82–87. <doi:10.1063/1.166141>
 }

@@ -2,6 +2,7 @@
 #' @param x object of class DFA to print.
 #' @param ... further parameters.
 #' @exportS3Method print mvDFA
+#' @return Truncates the output printed into the console of objects of class \code{mvDFA}, but does not change object itself.
 #' @export
 
 print.mvDFA <- function(x, ...)

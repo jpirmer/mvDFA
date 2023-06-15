@@ -11,6 +11,9 @@
 
 \item{...}{further parameters.}
 }
+\value{
+Truncates the output printed into the console of objects of class \code{mvDFA}, but does not change object itself.
+}
 \description{
 print object of class mvDFA
 }

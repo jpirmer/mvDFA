@@ -20,7 +20,7 @@ simulate_Lorenz_noise(
   s = 10,
   r = 28,
   b = 8/3,
-  naive = F,
+  naive = FALSE,
   return_time = TRUE
 )
 }
@@ -59,6 +59,12 @@ simulate_Lorenz_noise(
 
 \item{return_time}{Logical whether the time-coordinate should be included in the returned \code{data.frame}. \code{DEFAULT} to \code{TRUE}.}
 }
+\value{
+Returns a three dimensional time series as \code{data.frame} following the Lorenz system (Lorenz, 1963, <doi:10.1175/1520-0469(1963)020<0130:DNF>2.0.CO;2>).
+}
 \description{
 Simulate the Lorenz System with noise
+}
+\references{
+Lorenz, E. N. (1963). Deterministic nonperiodic flow. Journal of atmospheric sciences, 20(2), 130-141. <doi:10.1175/1520-0469(1963)020<0130:DNF>2.0.CO;2>
 }

@@ -1,4 +1,4 @@
-#' Analyze multivariate correlated time series and estimate long memory
+#' Analyze multivariate correlated time series and estimate long memory by the extension of the using univariate Detrended Fluctuations Analysis (DFA; Peng et al., 1995) to multivariate time series: mvDFA
 #' @import stats
 #' @importFrom pracma logseq
 #' @import parallel
@@ -28,17 +28,17 @@
 #' \item{Cov_RMS_s}{a list of Root Mean Squares per window size corresponding to the covariance approach}
 #' \item{S}{window sizes used}
 #' \item{CovRMS_list}{a list of covariance matrices per \code{S} may be returned}
-#'
 #' @examples
 #' Sigma <- matrix(.5, 3, 3); diag(Sigma) <- 1
 #' # generate correlated Gaussian white noise (i.i.d. multivariate normal variables)
 #' X <- mvtnorm::rmvnorm(n = 500, sigma = Sigma)
 #' mvDFA(X = X, steps = 5) # steps = 5 is only for demonstration,
 #'                         # use many steps instead, e.g. steps = 50!
+#' @references Peng, C. K., Havlin, S., Stanley, H. E., & Goldberger, A. L. (1995). Quantification of scaling exponents and crossover phenomena in nonstationary heartbeat time-series. Chaos, 5, 82–87. <doi:10.1063/1.166141>
 #' @export
 
-mvDFA <- function(X, steps = 50, degree = 1, verbose = F, cores = 1,
-                  covlist = F, brownian = F)
+mvDFA <- function(X, steps = 50, degree = 1, verbose = FALSE, cores = 1,
+                  covlist = FALSE, brownian = FALSE)
 {
      ### checking input ---
      if(!is.matrix(X) & !is.data.frame(X)) stop("X needs to be a matrix or data.frame.")
@@ -90,14 +90,14 @@ mvDFA <- function(X, steps = 50, degree = 1, verbose = F, cores = 1,
                                          COV1 <- cov(Yt_minus_yvt_1)/s*(s-1)
                                          RMS_gen_temp1 <- det(COV1)
                                          RMS_tot_temp1 <- sum(diag(COV1))
-                                         CovRMS_vs1 <- unname(c(diag(COV1), COV1[lower.tri(COV1, diag = F)]))
+                                         CovRMS_vs1 <- unname(c(diag(COV1), COV1[lower.tri(COV1, diag = FALSE)]))
 
                                          if(ind != 0){
                                               Yt_minus_yvt_2 <- resid(lm(Y[n - v*s+1:s, ] ~ detrend))
                                               COV2 <- cov(Yt_minus_yvt_2)/s*(s-1)
                                               RMS_gen_temp2 <- det(COV2)
                                               RMS_tot_temp2 <- sum(diag(COV2))
-                                              CovRMS_vs2 <- unname(c(diag(COV2), COV2[lower.tri(COV2, diag = F)]))
+                                              CovRMS_vs2 <- unname(c(diag(COV2), COV2[lower.tri(COV2, diag = FALSE)]))
                                          }else{
                                               RMS_gen_temp2 <- NULL
                                               RMS_tot_temp2 <- NULL
@@ -107,7 +107,7 @@ mvDFA <- function(X, steps = 50, degree = 1, verbose = F, cores = 1,
                                          list("RMS_gen_temp" = c(RMS_gen_temp1, RMS_gen_temp2),
                                               "RMS_tot_temp" = c(RMS_tot_temp1, RMS_tot_temp2),
                                               "CovRMS_vs" = rbind(CovRMS_vs1, CovRMS_vs2))
-                                    }, simplify = F)
+                                    }, simplify = FALSE)
 
                                     RMS_tot_temp <- c(sapply(temp_list, "[[", "RMS_tot_temp"))
                                     RMS_gen_temp <- c(sapply(temp_list, "[[", "RMS_gen_temp"))
@@ -143,7 +143,7 @@ mvDFA <- function(X, steps = 50, degree = 1, verbose = F, cores = 1,
           for(i in 1:dim(CovRMS_s)[1])
           {
                COV <- matrix(0, d, d)
-               COV[lower.tri(COV, diag = F)] <- CovRMS_s[i, -c(1:d)]
+               COV[lower.tri(COV, diag = FALSE)] <- CovRMS_s[i, -c(1:d)]
                COV <- COV + t(COV); diag(COV) <- CovRMS_s[i, 1:d]
                CovRMS_list[[i]] <- COV
           }

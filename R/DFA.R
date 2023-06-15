@@ -1,4 +1,4 @@
-#' Analyze univariate time series and estimate long memory
+#' Analyze univariate time series and estimate long memory using Detrended Fluctuations Analysis (DFA; Peng et al., 1995)
 #' @import stats
 #' @importFrom pracma logseq
 #' @import parallel
@@ -10,13 +10,14 @@
 #' @param verbose Indicator whether additional info should be printed. Default to \code{TRUE}.
 #' @param cores Number of cores used in computation. Default to \code{1}.
 #' @return Returns list of Root Mean Squares per window size \code{RMS_s}, the window sizes \code{S} and the estimated long memory coefficient \code{L} - the Hurst Exponent.
+#' @references Peng, C. K., Havlin, S., Stanley, H. E., & Goldberger, A. L. (1995). Quantification of scaling exponents and crossover phenomena in nonstationary heartbeat time-series. Chaos, 5, 82–87. <doi:10.1063/1.166141>
 #' @examples
 #' X <- rnorm(500) # generate Gaussian white noise (i.i.d. standard normal variables)
 #' DFA(X = X, steps = 5) # steps = 5 is only for demonstration,
 #'                         # use many steps instead, e.g. steps = 50!
 #' @export
 
-DFA <- function(X, steps = 50, brownian = F, degree = 1, verbose = TRUE, cores = 1)
+DFA <- function(X, steps = 50, brownian = FALSE, degree = 1, verbose = TRUE, cores = 1)
 {
      ### checking input ---
      if(!is.numeric(cores)) stop("cores needs to be numeric.")
@@ -68,7 +69,7 @@ DFA <- function(X, steps = 50, brownian = F, degree = 1, verbose = TRUE, cores =
                                                                  var(resid(lm(Y[n - v*s+1:s] ~ detrend)))*(s-1)/s # to controll for window sizes not fitting over the whole time interval
                                                             }else{v2 <- NULL}
                                                             c(v1, v2)
-                                                       }, simplify = F)
+                                                       }, simplify = FALSE)
                                       sqrt(mean(unlist(RMS_vs), na.rm = TRUE))
                                  }, simplify = TRUE)
      if(!is.null(cl)) parallel::stopCluster(cl)

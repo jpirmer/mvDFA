@@ -2,16 +2,16 @@
 % Please edit documentation in R/mvDFA.R
 \name{mvDFA}
 \alias{mvDFA}
-\title{Analyze multivariate correlated time series and estimate long memory}
+\title{Analyze multivariate correlated time series and estimate long memory by the extension of the using univariate Detrended Fluctuations Analysis (DFA; Peng et al., 1995) to multivariate time series: mvDFA}
 \usage{
 mvDFA(
   X,
   steps = 50,
   degree = 1,
-  verbose = F,
+  verbose = FALSE,
   cores = 1,
-  covlist = F,
-  brownian = F
+  covlist = FALSE,
+  brownian = FALSE
 )
 }
 \arguments{
@@ -49,7 +49,7 @@ An object of class \code{mvDFA} containing long memory coefficients (Hurst expon
 \item{CovRMS_list}{a list of covariance matrices per \code{S} may be returned}
 }
 \description{
-Analyze multivariate correlated time series and estimate long memory
+Analyze multivariate correlated time series and estimate long memory by the extension of the using univariate Detrended Fluctuations Analysis (DFA; Peng et al., 1995) to multivariate time series: mvDFA
 }
 \examples{
 Sigma <- matrix(.5, 3, 3); diag(Sigma) <- 1
@@ -57,4 +57,7 @@ Sigma <- matrix(.5, 3, 3); diag(Sigma) <- 1
 X <- mvtnorm::rmvnorm(n = 500, sigma = Sigma)
 mvDFA(X = X, steps = 5) # steps = 5 is only for demonstration,
                         # use many steps instead, e.g. steps = 50!
+}
+\references{
+Peng, C. K., Havlin, S., Stanley, H. E., & Goldberger, A. L. (1995). Quantification of scaling exponents and crossover phenomena in nonstationary heartbeat time-series. Chaos, 5, 82–87. <doi:10.1063/1.166141>
 }

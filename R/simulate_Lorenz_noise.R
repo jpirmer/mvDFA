@@ -18,6 +18,8 @@
 #' @param b b-parameter of the Lorenz ODE. See Vignette for further details. \code{DEFAULT} to \code{8/3}, which is the original value chosen by Lorenz.
 #' @param naive Logical whether naive calculation should be used. \code{DEFAULT} to \code{FALSE}.
 #' @param return_time Logical whether the time-coordinate should be included in the returned \code{data.frame}. \code{DEFAULT} to \code{TRUE}.
+#' @returns Returns a three dimensional time series as \code{data.frame} following the Lorenz system (Lorenz, 1963, <doi:10.1175/1520-0469(1963)020<0130:DNF>2.0.CO;2>).
+#' @references Lorenz, E. N. (1963). Deterministic nonperiodic flow. Journal of atmospheric sciences, 20(2), 130-141. <doi:10.1175/1520-0469(1963)020<0130:DNF>2.0.CO;2>
 #' @export
 
 simulate_Lorenz_noise <- function(N = 1000, delta_t = NULL, tmax = 50,
@@ -25,7 +27,7 @@ simulate_Lorenz_noise <- function(N = 1000, delta_t = NULL, tmax = 50,
                          sdX = NULL, sdY = NULL, sdZ = NULL,
                          sdnoiseX, sdnoiseY, sdnoiseZ,
                          s = 10, r = 28, b = 8/3,
-                         naive = F,
+                         naive = FALSE,
                          return_time = TRUE)
 {
 
